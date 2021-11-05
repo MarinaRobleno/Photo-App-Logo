@@ -6,8 +6,6 @@ export function MyPhotos() {
         <div>
             <div>
                 <TextField id="outlined-basic" label="Search description" variant="outlined" />
-            </div>
-            <div>
                 <TextField id="outlined-basic" label="Order by" variant="outlined" />
             </div>
         </div>

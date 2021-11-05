@@ -4,17 +4,29 @@ import Button from '@mui/material/Button';
 import { MyPhotos } from './components/MyPhotos.jsx'
 import { Search } from './components/Search.jsx'
 import {  Route, Link, Routes } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 
 function App() {
   return (
     <>
     <header>
-      <Link to='/search'>
-        <Button variant="contained" color='secondary'>PHOTO APP LOGO</Button>
-      </Link>
-      <Link to='/my-photos'>
-        <Button variant="outlined">My Photos</Button>
-      </Link>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={3}>  
+          <Grid item xs>
+            <Link to='/search'>
+              <Button variant="contained" color='secondary'>PHOTO APP LOGO</Button>
+            </Link>
+          </Grid>
+          <Grid item xs>
+            <Link to='/my-photos'>
+              <Button variant="outlined">My Photos</Button>
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
 
     </header>
       <Routes>
