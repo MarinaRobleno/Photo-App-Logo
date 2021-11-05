@@ -4,18 +4,27 @@ import {Button} from '@mui/material';
 
 export function Search() {
 
-    const [imageUrl, setImageUrl] = useState([])
+    const [images, setImageUrl] = useState([])
 
     const handleLoad = async () => {
         const response = await fetch('https://api.unsplash.com/photos/?client_id=cr4k_yImLDT24QYPslx4d5U9plFlqqyjdeoFXgI4vXI')
         const json = await response.json()
         
-        const urlArray = json.map(photo => {
-            return photo.urls.thumb
+        const imageArray = json.map(photo => {
+            return {
+                id: photo.id,
+                width: photo.width,
+                height: photo.height,
+                description: photo.description,
+                likes: photo.likes,
+                urlFull: photo.urls.full,
+                urlThumb: photo.urls.thumb,
+                date: new Date()
+            }
         });
 
-        setImageUrl(urlArray);
-        console.log(imageUrl)        
+        setImageUrl(imageArray);
+        console.log(images)        
     };
 
     return (
@@ -23,11 +32,10 @@ export function Search() {
         <Button variant="contained" onClick={handleLoad}>Load all photos</Button>
         <div>
             <TextField id="outlined-basic" label="Start searching here..." variant="outlined" />
-            
         </div>
         <div>
-            {imageUrl.map((url) => {
-                return <img src={url} />
+            {images.map((image) => {
+                return <img key={image.id} src={image.urlThumb} />
             })}
         </div>
     </div>
