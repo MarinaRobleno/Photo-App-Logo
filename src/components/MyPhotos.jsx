@@ -1,5 +1,6 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
+import { Search } from './Search.jsx';
 
 export function MyPhotos() {
     return (
