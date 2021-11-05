@@ -6,18 +6,26 @@ import {Button} from '@mui/material';
 
 export function Search() {
 
+    const [imageUrl, setImageUrl] = useState([])
+
     const handleSearch = async () => {
         const response = await fetch('https://api.unsplash.com/photos/?client_id=cr4k_yImLDT24QYPslx4d5U9plFlqqyjdeoFXgI4vXI')
         const json = await response.json()
+        
+        
+        const url = json[0].urls.thumb;
+
+        setImageUrl((prev) => {
+            return [...prev, url]})
     }
     return (
     <div>
         <div>
             <TextField id="outlined-basic" label="Start searching here..." variant="outlined" />
-            <Button variant="contained" color='secondary' onClick={handleSearch}>Search photo</Button>
+            <Button variant="contained" color='secondary' onClick={handleSearch}>Load all photos</Button>
         </div>
         <div>
-            Aqui van fotos
+            <img src={imageUrl}/>
         </div>
     </div>
     )
