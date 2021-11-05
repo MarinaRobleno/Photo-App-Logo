@@ -3,7 +3,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import { MyPhotos } from './components/MyPhotos.jsx'
 import { Search } from './components/Search.jsx'
-import {  Route, Link, NavLink, Routes } from 'react-router-dom';
+import {  Route, Link, Routes } from 'react-router-dom';
 
 function App() {
   return (
@@ -23,8 +23,6 @@ function App() {
       </Routes>
     </>
   );
-
-  
 }
 
 export default App;
