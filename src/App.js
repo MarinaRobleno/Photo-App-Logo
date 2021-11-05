@@ -4,9 +4,7 @@ import Button from '@mui/material/Button';
 import { MyPhotos } from './components/MyPhotos.jsx'
 import { Search } from './components/Search.jsx'
 import {  Route, Link, Routes } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 
 function App() {
