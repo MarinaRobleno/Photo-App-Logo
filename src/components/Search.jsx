@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState } from 'react';
 import TextField from '@mui/material/TextField';
 import {Button} from '@mui/material';
 import ImageList from '@mui/material/ImageList';
@@ -7,14 +7,27 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 
 export function Search() {
 
-    const [images, setImageUrl] = useState([])
-    const [favorites, setFavorites] = useState([])
+    const [images, setImages] = useState([])
+    const [term, setTerm] = useState('')
+    const [json, setJson] = useState([])
 
-    const handleLoad = async () => {
-        const response = await fetch('https://api.unsplash.com/photos/?client_id=cr4k_yImLDT24QYPslx4d5U9plFlqqyjdeoFXgI4vXI')
+    const setSearchTerm = (e) => {
+        setTerm(e.target.value);
+        handleSearch();
+        if (term.length>0){
+            makeArray();
+        }
+    }
+
+
+    const handleSearch = async () => {
+        const response = await fetch(`https://api.unsplash.com/search/photos?query=${term}&client_id=cr4k_yImLDT24QYPslx4d5U9plFlqqyjdeoFXgI4vXI`)
         const json = await response.json()
-        
-        const imageArray = json.map(photo => {
+        setJson(json);
+    };
+    
+    const makeArray = () => {
+        const imageArray = json.results.map(photo => {
             return {
                 id: photo.id,
                 width: photo.width,
@@ -28,30 +41,26 @@ export function Search() {
             }
         });
 
-        setImageUrl(imageArray);
-        console.log(images)        
-    };
-
-    const handleFav = (photo) => {
-        setFavorites((prev) => [...prev, photo.photob]);
-        console.log(favorites)
+        setImages(imageArray);    
     }
+  
+    
 
     return (
     <div>
-        <Button variant="contained" onClick={handleLoad}>Load all photos</Button>
         <div>
-            <TextField id="outlined-basic" label="Start searching here..." variant="outlined" />
+            <TextField id="outlined-basic" label="Start searching here..." variant="outlined" onChange={setSearchTerm}/>
         </div>
-        <ImageList variant="masonry" cols={4} gap={1} >
+        <ImageList variant="masonry" cols={8} gap={1} >
             {images.map((image) => (
                 <ImageListItem key={image.id}>
                     <img
                         src={image.urlThumb}
+                        alt={image.alt}
                     />
                     <ImageListItemBar
                         position="below"
-                        subtitle={<Button variant="contained" photob={image} color="secondary" onClick={handleFav}>Add to my photos</Button>}
+                        subtitle={<Button variant="contained" photob={image} color="secondary" >Add to my photos</Button>}
                     />
                 </ImageListItem>
             ))}
