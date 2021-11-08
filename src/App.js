@@ -1,5 +1,5 @@
 import './App.css';
-import * as React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import { MyPhotos } from './components/MyPhotos.jsx'
 import { Search } from './components/Search.jsx'
@@ -8,6 +8,9 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
 function App() {
+
+  const [myImages, setMyImages] = useState([])
+
   return (
     <>
     <header>
@@ -28,8 +31,8 @@ function App() {
 
     </header>
       <Routes>
-        <Route path='/search' element={<Search />}/>       
-        <Route path='/my-photos' element={<MyPhotos />}/>
+        <Route path='/search' element={<Search setMyImages={setMyImages} />}/>       
+        <Route path='/my-photos' element={<MyPhotos myImages={myImages}/>}/>
       </Routes>
     </>
   );
