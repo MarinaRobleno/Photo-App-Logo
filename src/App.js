@@ -15,13 +15,17 @@ function App() {
     <>
     <header>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={3}>  
-          <Grid item xs>
+        <Grid 
+          container spacing={1} 
+          direction="row"
+          justifyContent="flex-end"
+          alignItems="flex-start">
+          <Grid item xs='auto'>
             <Link to='/search'>
               <Button variant="contained" color='secondary'>PHOTO APP LOGO</Button>
             </Link>
           </Grid>
-          <Grid item xs>
+          <Grid item xs='auto'>
             <Link to='/my-photos'>
               <Button variant="outlined">My Photos</Button>
             </Link>

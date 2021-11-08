@@ -4,6 +4,7 @@ import {Button} from '@mui/material';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
+import Grid from '@mui/material/Grid';
 
 
 export function Search({setMyImages}) {
@@ -25,30 +26,43 @@ export function Search({setMyImages}) {
 
 
     const handleAdd = (image) => {
-        setMyImages(prev => [...prev, image]);
+        setMyImages(prev => 
+            [...prev, image]);
 
     }
 
     return (
     <div>
         <div>
-            <TextField id="outlined-basic" label="Start searching here..." variant="outlined" onChange={setSearchTerm}/>
+            <Grid container 
+                direction="row" 
+                justifyContent="center" 
+                alignItems="flex-start" >
+                <TextField id="outlined-basic" label="Start searching here..." variant="outlined" onChange={setSearchTerm}/>
+            </Grid>
         </div>
-        <ImageList variant="masonry" cols={8} gap={1} >
-            {json.map((image) => (
-                <ImageListItem key={image.id}>
-                    <img
-                        src={image.urls.thumb}
-                        alt=''
-                    />
-                    <ImageListItemBar
-                        position="below"
-                        subtitle={
-                            <Button variant="contained" color="secondary" onClick={() => handleAdd(image)}>Add to my photos</Button>}
-                    />
-                </ImageListItem>
-            ))}
-        </ImageList>
+        <div>
+            <Grid container 
+                direction="row" 
+                justifyContent="center" 
+                alignItems="flex-start">
+                <ImageList cols={4}>
+                    {json.map((image) => (
+                        <ImageListItem sx={{ maxWidth: 300 }} key={image.id}>
+                            <img
+                                src={image.urls.small}
+                                alt=''
+                            />
+                            <ImageListItemBar
+                                position="below"
+                                subtitle={
+                                    <Button variant="contained" color="secondary" onClick={() => handleAdd(image)}>❤</Button>}
+                            />
+                        </ImageListItem>
+                    ))}
+                </ImageList>
+            </Grid>
+        </div>
     </div>
     )
 }

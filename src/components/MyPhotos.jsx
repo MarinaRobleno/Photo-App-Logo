@@ -9,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+
 export function MyPhotos({myImages}) {
     
     var today = new Date();
@@ -23,21 +24,23 @@ export function MyPhotos({myImages}) {
 
     const [order, setOrder] = useState(''); 
     const handleOrder = (event) => {
-        setOrder(event.target.value);
+        setOrder(event.target.value);        
     };
 
-    const imageArray = myImages.map(photo => {
-        return {
-            id: photo.id,
-            width: photo.width,
-            height: photo.height,
-            description: photo.description,
-            alt: photo.alt_description,
-            likes: photo.likes,
-            urlFull: photo.urls.full,
-            urlThumb: photo.urls.thumb,
-            date: dateTime
-        }
+    const imageArray = myImages
+        .map(photo => {
+            return {
+                id: photo.id,
+                width: photo.width,
+                height: photo.height,
+                description: photo.description,
+                alt: photo.alt_description,
+                likes: photo.likes,
+                urlFull: photo.urls.full,
+                urlThumb: photo.urls.thumb,
+                date: dateTime
+            }
+        
     });
 
     const handleSearchDescription = (e) => {
@@ -50,7 +53,7 @@ export function MyPhotos({myImages}) {
             <div>
                 <TextField id="outlined-basic" label="Search description" variant="outlined" onChange={handleSearchDescription}/>
                 <Box sx={{ maxWidth: 120 }}>
-                    <FormControl fullWidth>
+                    <FormControl fullWidth >
                         <InputLabel id="demo-simple-select-label">Order By</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
@@ -59,10 +62,10 @@ export function MyPhotos({myImages}) {
                             label="Order"
                             onChange={handleOrder}
                         >
-                            <MenuItem value={10}>Date</MenuItem>
-                            <MenuItem value={20}>Width</MenuItem>
-                            <MenuItem value={30}>Height</MenuItem>
-                            <MenuItem value={40}>Likes</MenuItem>
+                            <MenuItem value='date'>Date</MenuItem>
+                            <MenuItem value='width'>Width</MenuItem>
+                            <MenuItem value='height'>Height</MenuItem>
+                            <MenuItem value='likes'>Likes</MenuItem>
                         </Select>
                     </FormControl>
                 </Box>
@@ -93,6 +96,17 @@ export function MyPhotos({myImages}) {
                                     <li>Likes: {image.likes}</li>
                                     <li>Date added: {image.date}</li>
                                 </ul>
+                                <div className='photo-buttons'>
+                                    <button style={{ height: 40}}>
+                                        <img src="https://img.icons8.com/ios-glyphs/30/000000/delete-forever.png"/>
+                                    </button>
+                                    <button style={{ height: 40}}>
+                                        <img src="https://img.icons8.com/windows/32/000000/edit--v4.png"/>
+                                    </button>
+                                    <button style={{ height: 40}}>
+                                        <img src="https://img.icons8.com/pastel-glyph/32/000000/download--v2.png"/>
+                                    </button>
+                                </div>
                             </>
                         }
                     />
