@@ -8,10 +8,19 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useSelector, useDispatch } from 'react-redux';
+import { remove, edit, download, selectMyPhotos } from '../slices/myPhotosSlice.js';
 
 
 export function MyPhotos({myImages}) {
     
+    const photoManager = useSelector(selectMyPhotos);
+    const dispatch = useDispatch();
+
+    const removePhotoHandler = (image) => {
+        dispatch(remove(image));
+    }
+
     var today = new Date();
     var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
     var dateTime = date;
@@ -100,7 +109,7 @@ export function MyPhotos({myImages}) {
                                     <li>Date added: {image.date}</li>
                                 </ul>
                                 <div className='photo-buttons'>
-                                    <button style={{ height: 40}}>
+                                    <button style={{ height: 40}} onClick={() => removePhotoHandler(image)}>
                                         <img src="https://img.icons8.com/ios-glyphs/30/000000/delete-forever.png"/>
                                     </button>
                                     <button style={{ height: 40}}>
