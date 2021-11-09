@@ -50,11 +50,11 @@ export function Search({setMyImages}) {
                     {json.map((image) => (
                         <ImageListItem sx={{ maxWidth: 300 }} key={image.id}>
                             <img
-                                src={image.urls.small}
+                                src={image.urls.regular}
                                 alt=''
                             />
                             <ImageListItemBar
-                                position="below"
+                                position="bottom"
                                 subtitle={
                                     <Button variant="contained" color="secondary" onClick={() => handleAdd(image)}>❤</Button>}
                             />

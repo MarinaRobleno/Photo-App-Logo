@@ -13,18 +13,17 @@ import Select from '@mui/material/Select';
 export function MyPhotos({myImages}) {
     
     var today = new Date();
-
     var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
-
     var dateTime = date;
 
-    //localStorage.setItem('myImages', {myImages})
-
     const [filteredTerm, setFilteredTerm] = useState('');
+    const handleSearchDescription = (e) => {
+        setFilteredTerm(e.target.value);
+    }
 
     const [order, setOrder] = useState(''); 
     const handleOrder = (event) => {
-        setOrder(event.target.value);        
+        setOrder(event.target.value);      
     };
 
     const imageArray = myImages
@@ -37,21 +36,17 @@ export function MyPhotos({myImages}) {
                 alt: photo.alt_description,
                 likes: photo.likes,
                 urlFull: photo.urls.full,
+                urlRegular: photo.urls.regular,
                 urlThumb: photo.urls.thumb,
                 date: dateTime
             }
         
     });
 
-    const handleSearchDescription = (e) => {
-        setFilteredTerm(e.target.value);
-    }
-
-
     return (
         <div>
             <div>
-                <TextField id="outlined-basic" label="Search description" variant="outlined" onChange={handleSearchDescription}/>
+                <TextField id="outlined-basic" label="Search description..." variant="outlined" onChange={handleSearchDescription}/>
                 <Box sx={{ maxWidth: 120 }}>
                     <FormControl fullWidth >
                         <InputLabel id="demo-simple-select-label">Order By</InputLabel>
@@ -70,8 +65,16 @@ export function MyPhotos({myImages}) {
                     </FormControl>
                 </Box>
             </div>
-            <ImageList variant="masonry" cols={5} gap={1} >
+            <ImageList cols={6}>
             {imageArray
+                .sort((a, b) => {
+                    if (a.order > b.order){
+                        return -1;
+                    }else if (a.order < b.order){
+                        return 1;
+                    }return 0;
+
+                }) 
                 .filter((image) => {
                     if (filteredTerm == ''){
                         return image;
@@ -80,14 +83,14 @@ export function MyPhotos({myImages}) {
                     }
                 })
                 .map((image) => (
-                <ImageListItem key={image.id}>
+                <ImageListItem key={image.id} sx={{ maxWidth: 300 }}>
                     <img
-                        src={image.urlThumb}
+                        src={image.urlRegular}
                         alt={image.alt}
                     />
 
                     <ImageListItemBar
-                        position="below"
+                        position="bottom"
                         subtitle={
                             <>   
                                 <ul>PHOTO DETAILS

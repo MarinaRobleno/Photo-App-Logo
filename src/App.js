@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { MyPhotos } from './components/MyPhotos.jsx'
 import { Search } from './components/Search.jsx'
@@ -7,9 +7,22 @@ import {  Route, Link, Routes } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
+const KEY = 'myImagesApp.myImages';
+
 function App() {
 
   const [myImages, setMyImages] = useState([])
+
+  useEffect(() => {
+    const storedImages = JSON.parse(localStorage.getItem(KEY));
+    if (storedImages) {
+      setMyImages(storedImages);
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem(KEY, JSON.stringify(myImages))
+  }, [myImages])
 
   return (
     <>
