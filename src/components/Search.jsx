@@ -5,31 +5,32 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import Grid from '@mui/material/Grid';
+import { useSelector, useDispatch } from 'react-redux';
+import { add } from '../slices/myPhotosSlice.js';
 
+export function Search() {
 
-export function Search({setMyImages}) {
-
+    const dispatch = useDispatch();
 
     const [term, setTerm] = useState('')
     const [json, setJson] = useState([])
 
-    const handleSearch = async () => {
-        let response = await fetch(`https://api.unsplash.com/search/photos?query=${term}&client_id=cr4k_yImLDT24QYPslx4d5U9plFlqqyjdeoFXgI4vXI`)
+    const handleSearch = async (newTerm) => {
+        let response = await fetch(`https://api.unsplash.com/search/photos?query=${newTerm}&client_id=cr4k_yImLDT24QYPslx4d5U9plFlqqyjdeoFXgI4vXI`)
         let json = await response.json()
         setJson(json.results);
     };
 
     const setSearchTerm = (e) => {
         e.preventDefault();
-        setTerm(e.target.value);
-        handleSearch();
+        const newTerm = e.target.value;
+        setTerm(newTerm);
+        handleSearch(newTerm);
     }
 
 
     const handleAdd = (image) => {
-        setMyImages(prev => 
-            [...prev, image]);
-
+        dispatch(add(image))
     }
 
     return (
@@ -39,7 +40,7 @@ export function Search({setMyImages}) {
                 direction="row" 
                 justifyContent="center" 
                 alignItems="flex-start" >
-                <TextField id="outlined-basic" label="Start searching here..." variant="outlined" onChange={setSearchTerm}/>
+                <TextField id="outlined-basic" label="Start searching here..." value={term} variant="outlined" onChange={setSearchTerm}/>
             </Grid>
         </div>
         <div>

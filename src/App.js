@@ -7,22 +7,7 @@ import {  Route, Link, Routes } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
-const KEY = 'myImagesApp.myImages';
-
 function App() {
-
-  const [myImages, setMyImages] = useState([])
-
-  useEffect(() => {
-    const storedImages = JSON.parse(localStorage.getItem(KEY));
-    if (storedImages) {
-      setMyImages(storedImages);
-    }
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem(KEY, JSON.stringify(myImages))
-  }, [myImages])
 
   return (
     <>
@@ -48,8 +33,8 @@ function App() {
 
     </header>
       <Routes>
-        <Route path='/search' element={<Search setMyImages={setMyImages} />}/>       
-        <Route path='/my-photos' element={<MyPhotos myImages={myImages}/>}/>
+        <Route path='/search' element={<Search />}/>       
+        <Route path='/my-photos' element={<MyPhotos />}/>
       </Routes>
     </>
   );

@@ -9,12 +9,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useSelector, useDispatch } from 'react-redux';
-import { remove, edit, download, selectMyPhotos } from '../slices/myPhotosSlice.js';
+import { remove, edit, orderBy, selectMyPhotos } from '../slices/myPhotosSlice.js';
 
 
-export function MyPhotos({myImages}) {
+export function MyPhotos() {
     
-    const photoManager = useSelector(selectMyPhotos);
+    const myImages = useSelector(selectMyPhotos);
     const dispatch = useDispatch();
 
     const removePhotoHandler = (image) => {
@@ -35,7 +35,7 @@ export function MyPhotos({myImages}) {
         setOrder(event.target.value);      
     };
 
-    const imageArray = myImages
+    const imageArray = myImages.myPhotos
         .map(photo => {
             return {
                 id: photo.id,
@@ -76,14 +76,6 @@ export function MyPhotos({myImages}) {
             </div>
             <ImageList cols={6}>
             {imageArray
-                .sort((a, b) => {
-                    if (a.order > b.order){
-                        return -1;
-                    }else if (a.order < b.order){
-                        return 1;
-                    }return 0;
-
-                }) 
                 .filter((image) => {
                     if (filteredTerm == ''){
                         return image;
@@ -99,7 +91,7 @@ export function MyPhotos({myImages}) {
                     />
 
                     <ImageListItemBar
-                        position="bottom"
+                        position="below"
                         subtitle={
                             <>   
                                 <ul>PHOTO DETAILS
