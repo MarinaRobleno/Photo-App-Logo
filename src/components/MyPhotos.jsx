@@ -104,13 +104,14 @@ export function MyPhotos() {
                         position="below"
                         subtitle={
                             <>   
-                                <ul style={{ listStyle: 'none', display: 'block' }}>
-                                    <li>Width:{image.width}</li>
-                                    <li>Height:{image.height}</li>
+                                <ul style={{ listStyle: 'none', display: 'block', backgroundColor: 'black', opacity: 0.8, color: 'white', padding: 5, textAlign: 'center' }}>
+                                    {image.description &&
+                                    <li>Description: {image.description}</li>}
+                                    <li>Size: {image.height}x{image.width}</li>
                                     <li>Likes: {image.likes}</li>
                                     <li>Date added: {image.date}</li>
                                 </ul>
-                                <div className='photo-buttons' style={{ display: 'block', textAlign: 'center' }}>
+                                <div className='photo-buttons' style={{ display: 'block', textAlign: 'center', backgroundColor: 'black', opacity: 0.8, padding: 5 }}>
                                     <button onClick={() => removePhotoHandler(image)}>
                                         <BiTrash />
                                     </button>
