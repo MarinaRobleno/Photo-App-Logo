@@ -10,6 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useSelector, useDispatch } from 'react-redux';
 import { remove, edit, orderBy, selectMyPhotos } from '../slices/myPhotosSlice.js';
+import { BiArrowToBottom, BiEditAlt, BiTrash } from 'react-icons/bi';
 
 
 export function MyPhotos() {
@@ -29,11 +30,6 @@ export function MyPhotos() {
     const handleSearchDescription = (e) => {
         setFilteredTerm(e.target.value);
     }
-
-    const [order, setOrder] = useState(''); 
-    const handleOrder = (event) => {
-        setOrder(event.target.value);      
-    };
 
     const imageArray = myImages.myPhotos
         .map(photo => {
@@ -66,9 +62,7 @@ export function MyPhotos() {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={order}
                             label="Order"
-                            onChange={handleOrder}
                         >
                             <MenuItem value='date'>Date</MenuItem>
                             <MenuItem value='width'>Width</MenuItem>
@@ -98,21 +92,21 @@ export function MyPhotos() {
                         position="below"
                         subtitle={
                             <>   
-                                <ul>PHOTO DETAILS
+                                <ul style={{ listStyle: 'none', display: 'block' }}>
                                     <li>Width:{image.width}</li>
                                     <li>Height:{image.height}</li>
                                     <li>Likes: {image.likes}</li>
                                     <li>Date added: {image.date}</li>
                                 </ul>
-                                <div className='photo-buttons'>
-                                    <button style={{ height: 40}} onClick={() => removePhotoHandler(image)}>
-                                        <img src="https://img.icons8.com/ios-glyphs/30/000000/delete-forever.png"/>
+                                <div className='photo-buttons' style={{ display: 'block', textAlign: 'center' }}>
+                                    <button onClick={() => removePhotoHandler(image)}>
+                                        <BiTrash />
                                     </button>
-                                    <button style={{ height: 40}}>
-                                        <img src="https://img.icons8.com/windows/32/000000/edit--v4.png"/>
+                                    <button >
+                                        <BiEditAlt />
                                     </button>
-                                    <button style={{ height: 40}} onClick={() => download(image)}>
-                                        <img src="https://img.icons8.com/pastel-glyph/32/000000/download--v2.png"/>
+                                    <button onClick={() => download(image)}>
+                                        <BiArrowToBottom />
                                     </button>
                                 </div>
                             </>

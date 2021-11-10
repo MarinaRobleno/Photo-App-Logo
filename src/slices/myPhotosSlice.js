@@ -26,7 +26,7 @@ export const myPhotosSlice = createSlice({
         edit: state => {
             //Complete
         },
-        orderBy: {
+        orderBy: (state, action) => {
 
         }
     }
