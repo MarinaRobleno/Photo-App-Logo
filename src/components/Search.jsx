@@ -20,6 +20,7 @@ export function Search({setMyImages}) {
     };
 
     const setSearchTerm = (e) => {
+        e.preventDefault();
         setTerm(e.target.value);
         handleSearch();
     }
@@ -50,7 +51,7 @@ export function Search({setMyImages}) {
                     {json.map((image) => (
                         <ImageListItem sx={{ maxWidth: 300 }} key={image.id}>
                             <img
-                                src={image.urls.regular}
+                                src={image.urls.small}
                                 alt=''
                             />
                             <ImageListItemBar
