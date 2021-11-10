@@ -52,6 +52,10 @@ export function MyPhotos() {
         
     });
 
+    const download = (image) => {
+        window.open(image.urlFull, '_blank');
+    }
+
     return (
         <div>
             <div>
@@ -107,7 +111,7 @@ export function MyPhotos() {
                                     <button style={{ height: 40}}>
                                         <img src="https://img.icons8.com/windows/32/000000/edit--v4.png"/>
                                     </button>
-                                    <button style={{ height: 40}}>
+                                    <button style={{ height: 40}} onClick={() => download(image)}>
                                         <img src="https://img.icons8.com/pastel-glyph/32/000000/download--v2.png"/>
                                     </button>
                                 </div>
