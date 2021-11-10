@@ -17,15 +17,16 @@ function App() {
           container spacing={1} 
           direction="row"
           justifyContent="flex-end"
-          alignItems="flex-start">
+          alignItems="flex-start"
+          >
           <Grid item xs='auto'>
             <Link to='/search' style={{ textDecoration: 'none' }}>
-              <Button variant="contained" color='secondary' size='large' style={{ fontWeight: 'bold' }}>PHOTO APP LOGO</Button>
+              <Button variant="contained" color='secondary' size='large' style={{ fontWeight: 'bold', margin: 5 }}>PHOTO APP LOGO</Button>
             </Link>
           </Grid>
           <Grid item xs='auto'>
             <Link to='/my-photos'style={{ textDecoration: 'none'}}>
-              <Button variant="outlined" color='secondary' size='large' style={{ fontWeight: 'bold' }}>My Photos</Button>
+              <Button variant="outlined" color='secondary' size='large' style={{ fontWeight: 'bold', margin: 5 }}>My Photos</Button>
             </Link>
           </Grid>
         </Grid>

@@ -81,7 +81,7 @@ export function MyPhotos() {
                     <TextField id="outlined-basic" label="Search description..." variant="outlined" onChange={handleSearchDescription}/>
                     <Box sx={{ minWidth: 200 }}>
                         <FormControl fullWidth >
-                            <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
+                            <InputLabel id="demo-simple-select-label">Sort By...</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -121,11 +121,11 @@ export function MyPhotos() {
                             position="below"
                             subtitle={
                                 <>   
-                                    <ul style={{ listStyle: 'none', display: 'block', backgroundColor: 'black', opacity: 0.8, color: 'white', padding: 5, textAlign: 'center' }}>
+                                    <ul style={{ listStyle: 'none', display: 'block', backgroundColor: 'black', opacity: 0.8, color: 'white', padding: 5, textAlign: 'center', lineHeight: 1.4 }}>
                                         {image.description &&
                                         <li>Description: {image.description}</li>}
                                         <li>Size: {image.height}x{image.width}</li>
-                                        <li>Likes: {image.likes}</li>
+                                        <li>❤ {image.likes}</li>
                                         <li>Date added: {image.date}</li>
                                     </ul>
                                     <div className='photo-buttons' style={{ display: 'block', textAlign: 'center', backgroundColor: 'black', opacity: 0.8, padding: 5 }}>
