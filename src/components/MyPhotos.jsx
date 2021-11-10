@@ -28,18 +28,20 @@ export function MyPhotos() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [imageToChange, setImageToChange] = useState('')
+    const [imageToChange, setImageToChange] = useState('');
+    const [newDescription, setNewDescription] = useState('');
 
     const editPhotoHandler = (image) => {
         setImageToChange(image);
         handleOpen();
-        console.log(image.description);
     }
 
     const newDescriptionRef = useRef();
 
     const saveNewDescription = () => {
-        
+        const myDescription = newDescriptionRef.current.value;
+        setNewDescription(myDescription);
+        console.log(myDescription)
         handleClose();
     }
 
