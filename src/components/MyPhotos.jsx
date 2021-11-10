@@ -5,6 +5,8 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import Box from '@mui/material/Box';
 import {Button} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -18,20 +20,21 @@ export function MyPhotos() {
     
     const myImages = useSelector(selectMyPhotos);
     const dispatch = useDispatch();
-
+//REMOVE
     const removePhotoHandler = (image) => {
         dispatch(remove(image));
     }
-
-    var today = new Date();
-    var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
-    var dateTime = date;
-
-    const [filteredTerm, setFilteredTerm] = useState('');
-    const handleSearchDescription = (e) => {
-        setFilteredTerm(e.target.value);
+//EDIT
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const [imageToChange, setImageToChange] = useState('')
+    const editPhotoHandler = (image) => {
+        setImageToChange(image);
+        handleOpen()
     }
 
+//ORDER BY    
     const [select, setSelect] = useState('');
 
     const handleSelect = (e) => {
@@ -40,6 +43,16 @@ export function MyPhotos() {
         setSelect(newSelect);
         dispatch(orderBy(newSelect))
     }
+
+//FILTER
+    const [filteredTerm, setFilteredTerm] = useState('');
+    const handleSearchDescription = (e) => {
+        setFilteredTerm(e.target.value);
+    }
+
+    var today = new Date();
+    var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+    var dateTime = date;
 
     const imageArray = myImages.myPhotos
         .map(photo => {
@@ -84,7 +97,7 @@ export function MyPhotos() {
                     </FormControl>
                 </Box>
             </div>
-            <ImageList cols={6}>
+            <ImageList cols={5}>
             {imageArray
                 .filter((image) => {
                     if (filteredTerm == ''){
@@ -115,7 +128,7 @@ export function MyPhotos() {
                                     <button onClick={() => removePhotoHandler(image)}>
                                         <BiTrash />
                                     </button>
-                                    <button >
+                                    <button onClick={() => editPhotoHandler(image)}>
                                         <BiEditAlt />
                                     </button>
                                     <button onClick={() => download(image)}>
@@ -127,7 +140,33 @@ export function MyPhotos() {
                     />
                 </ImageListItem>
             ))}
-        </ImageList>
+            </ImageList>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box style = {{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 400,
+                    color: 'white',
+                    bgcolor: 'background.paper',
+                    border: '2px solid white',
+                    boxShadow: 24,
+                    p: 4}}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                    Write a new description:
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{ bgcolor: 'background.paper', display: 'block', textAlign: 'center' }}>
+                    <input placeholder='beautiful picture!'></input>
+                    <button>Save</button>
+                </Typography>
+                </Box>
+            </Modal>
         </div>
     )
 }
