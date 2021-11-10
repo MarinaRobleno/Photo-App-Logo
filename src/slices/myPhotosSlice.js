@@ -24,17 +24,7 @@ export const myPhotosSlice = createSlice({
             saveState(state.myPhotos);
         },
         edit: (state, action) => {
-            const newPhotos = []
-
-            state.myPhotos.forEach(photo => {
-                
-                if (photo.id === action.payload.id){
-                    newPhotos.push({...photo, description: action.payload.description})
-                }else{
-                    newPhotos.push(photo)
-                }
-                });
-            state.myPhotos = newPhotos;
+            state.myPhotos = state.myPhotos.map(photo => photo.id === action.payload.id ? {...photo, description: action.payload.description} : photo);
             saveState(state.myPhotos);
         },
         orderBy: (state, action) => {
