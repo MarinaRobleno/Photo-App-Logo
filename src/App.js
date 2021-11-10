@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
 import { MyPhotos } from './components/MyPhotos.jsx'
 import { Search } from './components/Search.jsx'

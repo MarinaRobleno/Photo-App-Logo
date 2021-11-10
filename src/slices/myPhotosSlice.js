@@ -23,11 +23,21 @@ export const myPhotosSlice = createSlice({
             state.myPhotos = state.myPhotos.filter(photo => photo.id !== action.payload.id)
             saveState(state.myPhotos);
         },
-        edit: state => {
-            //Complete
+        edit: (state, action) => {
+            state.myPhotos = state.myPhotos.map(photo => photo.description = action.payload)
+            saveState(state.myPhotos);
         },
         orderBy: (state, action) => {
-
+            state.myPhotos = state.myPhotos.sort((a,b) => {
+                    if (a[action.payload] > b[action.payload]){
+                        return -1;
+                    }
+                    if(a[action.payload] < b[action.payload]){
+                        return 1;
+                    }
+                    return 0;
+            })
+            saveState(state.myPhotos);
         }
     }
 })

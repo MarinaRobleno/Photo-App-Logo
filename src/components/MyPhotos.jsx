@@ -4,6 +4,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import Box from '@mui/material/Box';
+import {Button} from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -29,6 +30,15 @@ export function MyPhotos() {
     const [filteredTerm, setFilteredTerm] = useState('');
     const handleSearchDescription = (e) => {
         setFilteredTerm(e.target.value);
+    }
+
+    const [select, setSelect] = useState('');
+
+    const handleSelect = (e) => {
+        e.preventDefault();
+        const newSelect = e.target.value;
+        setSelect(newSelect);
+        dispatch(orderBy(newSelect))
     }
 
     const imageArray = myImages.myPhotos
@@ -62,12 +72,14 @@ export function MyPhotos() {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
+                            value={select}
                             label="Order"
+                            onChange={handleSelect}
                         >
-                            <MenuItem value='date'>Date</MenuItem>
-                            <MenuItem value='width'>Width</MenuItem>
-                            <MenuItem value='height'>Height</MenuItem>
-                            <MenuItem value='likes'>Likes</MenuItem>
+                            <MenuItem value={'date'}>Date</MenuItem>
+                            <MenuItem value={'width'}>Width</MenuItem>
+                            <MenuItem value={'height'}>Height</MenuItem>
+                            <MenuItem value={'likes'}>Likes</MenuItem>
                         </Select>
                     </FormControl>
                 </Box>
