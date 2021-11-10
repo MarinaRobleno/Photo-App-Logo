@@ -26,22 +26,19 @@ export function MyPhotos() {
     }
 //EDIT
     const [editing, setEditing] = useState(null);
-
     const [newDescription, setNewDescription] = useState('');
-    const [idEdited, setIdEdited] = useState('');
 
     const editPhotoHandler = (image) => {
-        const trueId = image.id;
-        setIdEdited(trueId);
         setEditing(image.id)
     }
 
-    const newDescriptionRef = useRef();
+    const inputHandler = (e) => {
+        const myDescription = e.target.value;
+        setNewDescription(myDescription);
+    }
 
     const saveNewDescription = () => {
-        const myDescription = newDescriptionRef.current.value;
-        setNewDescription(myDescription);
-        dispatch(edit({id: editing, description: myDescription}))
+        dispatch(edit({id: editing, description: newDescription}))
         setEditing(null);
     }
 
@@ -172,7 +169,7 @@ export function MyPhotos() {
                             Write a new description:
                         </Typography>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{ bgcolor: 'background.paper', display: 'block', textAlign: 'center' }}>
-                            <input ref={newDescriptionRef} placeholder='beautiful picture!'></input>
+                            <input onChange={inputHandler} placeholder='beautiful picture!'></input>
                             <button onClick={() => saveNewDescription()}>Save</button>
                         </Typography>
                         </Box>
