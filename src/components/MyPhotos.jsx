@@ -25,15 +25,15 @@ export function MyPhotos() {
         dispatch(remove(image));
     }
 //EDIT
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    const [imageToChange, setImageToChange] = useState('');
+    const [editing, setEditing] = useState(null);
+
     const [newDescription, setNewDescription] = useState('');
+    const [idEdited, setIdEdited] = useState('');
 
     const editPhotoHandler = (image) => {
-        setImageToChange(image);
-        handleOpen();
+        const trueId = image.id;
+        setIdEdited(trueId);
+        setEditing(image.id)
     }
 
     const newDescriptionRef = useRef();
@@ -41,8 +41,8 @@ export function MyPhotos() {
     const saveNewDescription = () => {
         const myDescription = newDescriptionRef.current.value;
         setNewDescription(myDescription);
-        console.log(myDescription)
-        handleClose();
+        dispatch(edit({id: editing, description: myDescription}))
+        setEditing(null);
     }
 
 //ORDER BY    
@@ -118,66 +118,66 @@ export function MyPhotos() {
                     }
                 })
                 .map((image) => (
-                <ImageListItem key={image.id} sx={{ maxWidth: 300 }}>
-                    <img
-                        src={image.urlRegular}
-                        alt={image.alt}
-                    />
-
-                    <ImageListItemBar
-                        position="below"
-                        subtitle={
-                            <>   
-                                <ul style={{ listStyle: 'none', display: 'block', backgroundColor: 'black', opacity: 0.8, color: 'white', padding: 5, textAlign: 'center' }}>
-                                    {image.description &&
-                                    <li>Description: {image.description}</li>}
-                                    <li>Size: {image.height}x{image.width}</li>
-                                    <li>Likes: {image.likes}</li>
-                                    <li>Date added: {image.date}</li>
-                                </ul>
-                                <div className='photo-buttons' style={{ display: 'block', textAlign: 'center', backgroundColor: 'black', opacity: 0.8, padding: 5 }}>
-                                    <button onClick={() => removePhotoHandler(image)}>
-                                        <BiTrash />
-                                    </button>
-                                    <button onClick={() => editPhotoHandler(image)}>
-                                        <BiEditAlt />
-                                    </button>
-                                    <button onClick={() => download(image)}>
-                                        <BiArrowToBottom />
-                                    </button>
-                                </div>
-                            </>
-                        }
-                    />
-                </ImageListItem>
+                    <ImageListItem key={image.id} sx={{ maxWidth: 300 }}>
+                        <img
+                            src={image.urlRegular}
+                            alt={image.alt}
+                        />
+                        <ImageListItemBar
+                            position="below"
+                            subtitle={
+                                <>   
+                                    <ul style={{ listStyle: 'none', display: 'block', backgroundColor: 'black', opacity: 0.8, color: 'white', padding: 5, textAlign: 'center' }}>
+                                        {image.description &&
+                                        <li>Description: {image.description}</li>}
+                                        <li>Size: {image.height}x{image.width}</li>
+                                        <li>Likes: {image.likes}</li>
+                                        <li>Date added: {image.date}</li>
+                                    </ul>
+                                    <div className='photo-buttons' style={{ display: 'block', textAlign: 'center', backgroundColor: 'black', opacity: 0.8, padding: 5 }}>
+                                        <button onClick={() => removePhotoHandler(image)}>
+                                            <BiTrash />
+                                        </button>
+                                        <button onClick={() => editPhotoHandler(image)}>
+                                            <BiEditAlt />
+                                        </button>
+                                        <button onClick={() => download(image)}>
+                                            <BiArrowToBottom />
+                                        </button>
+                                    </div>
+                                </>
+                            }
+                        />
+                    </ImageListItem>
             ))}
             </ImageList>
             <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box style = {{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: 400,
-                    color: 'white',
-                    bgcolor: 'background.paper',
-                    border: '2px solid white',
-                    boxShadow: 24,
-                    p: 4}}>
-                <Typography id="modal-modal-title" variant="h6" component="h2" style={{ display: 'block', textAlign: 'center' }}>
-                    Write a new description:
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{ bgcolor: 'background.paper', display: 'block', textAlign: 'center' }}>
-                    <input ref={newDescriptionRef} placeholder='beautiful picture!'></input>
-                    <button onClick={saveNewDescription}>Save</button>
-                </Typography>
-                </Box>
-            </Modal>
+                        open={editing != null}
+                        onClose={() => setEditing(null)}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box style = {{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: 400,
+                            color: 'white',
+                            bgcolor: 'background.paper',
+                            border: '2px solid white',
+                            boxShadow: 24,
+                            p: 4}}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2" style={{ display: 'block', textAlign: 'center' }}>
+                            Write a new description:
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{ bgcolor: 'background.paper', display: 'block', textAlign: 'center' }}>
+                            <input ref={newDescriptionRef} placeholder='beautiful picture!'></input>
+                            <button onClick={() => saveNewDescription()}>Save</button>
+                        </Typography>
+                        </Box>
+                    </Modal>
+            
         </div>
     )
 }
