@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -29,9 +29,18 @@ export function MyPhotos() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [imageToChange, setImageToChange] = useState('')
+
     const editPhotoHandler = (image) => {
         setImageToChange(image);
-        handleOpen()
+        handleOpen();
+        console.log(image.description);
+    }
+
+    const newDescriptionRef = useRef();
+
+    const saveNewDescription = () => {
+        
+        handleClose();
     }
 
 //ORDER BY    
@@ -158,12 +167,12 @@ export function MyPhotos() {
                     border: '2px solid white',
                     boxShadow: 24,
                     p: 4}}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
+                <Typography id="modal-modal-title" variant="h6" component="h2" style={{ display: 'block', textAlign: 'center' }}>
                     Write a new description:
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{ bgcolor: 'background.paper', display: 'block', textAlign: 'center' }}>
-                    <input placeholder='beautiful picture!'></input>
-                    <button>Save</button>
+                    <input ref={newDescriptionRef} placeholder='beautiful picture!'></input>
+                    <button onClick={saveNewDescription}>Save</button>
                 </Typography>
                 </Box>
             </Modal>
