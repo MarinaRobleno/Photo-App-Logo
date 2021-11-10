@@ -1,16 +1,5 @@
 import React, { useState, useRef } from 'react';
-import TextField from '@mui/material/TextField';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import Box from '@mui/material/Box';
-import {Button} from '@mui/material';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { Grid, PaginationItem, TextField, ImageList, ImageListItem, ImageListItemBar, Box, Button, Typography, Modal, InputLabel, MenuItem, FormControl, Select } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux';
 import { remove, edit, orderBy, selectMyPhotos } from '../slices/myPhotosSlice.js';
 import { BiArrowToBottom, BiEditAlt, BiTrash } from 'react-icons/bi';
@@ -86,26 +75,34 @@ export function MyPhotos() {
     return (
         <div>
             <div>
-                <TextField id="outlined-basic" label="Search description..." variant="outlined" onChange={handleSearchDescription}/>
-                <Box sx={{ maxWidth: 120 }}>
-                    <FormControl fullWidth >
-                        <InputLabel id="demo-simple-select-label">Order By</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={select}
-                            label="Order"
-                            onChange={handleSelect}
-                        >
-                            <MenuItem value={'date'}>Date</MenuItem>
-                            <MenuItem value={'width'}>Width</MenuItem>
-                            <MenuItem value={'height'}>Height</MenuItem>
-                            <MenuItem value={'likes'}>Likes</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Box>
+                <Grid container 
+                    direction="row" 
+                    justifyContent="center">
+                    <TextField id="outlined-basic" label="Search description..." variant="outlined" onChange={handleSearchDescription}/>
+                    <Box sx={{ minWidth: 200 }}>
+                        <FormControl fullWidth >
+                            <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={select}
+                                label="Order"
+                                onChange={handleSelect}
+                            >
+                                <MenuItem value={'date'}>Date</MenuItem>
+                                <MenuItem value={'width'}>Width</MenuItem>
+                                <MenuItem value={'height'}>Height</MenuItem>
+                                <MenuItem value={'likes'}>Likes</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
+                </Grid>
             </div>
-            <ImageList cols={5}>
+            <Grid container 
+                direction="row" 
+                justifyContent="center" 
+                alignItems="flex-start">
+            <ImageList cols={4}>
             {imageArray
                 .filter((image) => {
                     if (filteredTerm == ''){
@@ -132,15 +129,15 @@ export function MyPhotos() {
                                         <li>Date added: {image.date}</li>
                                     </ul>
                                     <div className='photo-buttons' style={{ display: 'block', textAlign: 'center', backgroundColor: 'black', opacity: 0.8, padding: 5 }}>
-                                        <button onClick={() => removePhotoHandler(image)}>
+                                        <Button variant="text" onClick={() => removePhotoHandler(image)} color='secondary'>
                                             <BiTrash />
-                                        </button>
-                                        <button onClick={() => editPhotoHandler(image)}>
+                                        </Button>
+                                        <Button variant="text" onClick={() => editPhotoHandler(image)} color='secondary'>
                                             <BiEditAlt />
-                                        </button>
-                                        <button onClick={() => download(image)}>
+                                        </Button>
+                                        <Button variant="text" onClick={() => download(image)} color='secondary'>
                                             <BiArrowToBottom />
-                                        </button>
+                                        </Button>
                                     </div>
                                 </>
                             }
@@ -148,32 +145,34 @@ export function MyPhotos() {
                     </ImageListItem>
             ))}
             </ImageList>
+            </Grid>
             <Modal
-                        open={editing != null}
-                        onClose={() => setEditing(null)}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                    >
-                        <Box style = {{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: 400,
-                            color: 'white',
-                            bgcolor: 'background.paper',
-                            border: '2px solid white',
-                            boxShadow: 24,
-                            p: 4}}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2" style={{ display: 'block', textAlign: 'center' }}>
-                            Write a new description:
-                        </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{ bgcolor: 'background.paper', display: 'block', textAlign: 'center' }}>
-                            <input onChange={inputHandler} placeholder='beautiful picture!'></input>
-                            <button onClick={() => saveNewDescription()}>Save</button>
-                        </Typography>
-                        </Box>
-                    </Modal>
+                open={editing != null}
+                onClose={() => setEditing(null)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box style = {{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: 400,
+                    height: 200,
+                    color: 'white',
+                    bgcolor: 'background.paper',
+                    border: '2px solid white',
+                    boxShadow: 24,
+                    p: 4}}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2" style={{ display: 'block', textAlign: 'center', paddingTop: 30 }}>
+                        Write a new description:
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{ bgcolor: 'background.paper', display: 'block', textAlign: 'center' }}>
+                        <input onChange={inputHandler} placeholder='type something here...' style={{ height: 10, padding: 12, margin: 2 }}></input>
+                        <Button variant="contained" color='secondary' onClick={() => saveNewDescription()}>Save</Button>
+                    </Typography>
+                </Box>
+            </Modal>
             
         </div>
     )

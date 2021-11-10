@@ -19,13 +19,13 @@ function App() {
           justifyContent="flex-end"
           alignItems="flex-start">
           <Grid item xs='auto'>
-            <Link to='/search'>
-              <Button variant="contained" color='secondary'>PHOTO APP LOGO</Button>
+            <Link to='/search' style={{ textDecoration: 'none' }}>
+              <Button variant="contained" color='secondary' size='large' style={{ fontWeight: 'bold' }}>PHOTO APP LOGO</Button>
             </Link>
           </Grid>
           <Grid item xs='auto'>
-            <Link to='/my-photos'>
-              <Button variant="outlined">My Photos</Button>
+            <Link to='/my-photos'style={{ textDecoration: 'none'}}>
+              <Button variant="outlined" color='secondary' size='large' style={{ fontWeight: 'bold' }}>My Photos</Button>
             </Link>
           </Grid>
         </Grid>
