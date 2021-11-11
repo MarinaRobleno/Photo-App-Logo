@@ -28,7 +28,7 @@ export function Search() {
 
 
     const handleAdd = (image) => {
-        image.tag = term;
+        image.tag = term.toLowerCase();
         dispatch(add(image))
     }
 
