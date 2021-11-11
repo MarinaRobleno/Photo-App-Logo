@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import {Button, Pagination, PaginationItem, Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Grid} from '@mui/material';
+import {Button, Pagination, PaginationItem, TablePagination , Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Grid} from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { add } from '../slices/myPhotosSlice.js';
-import TouchRipple from '@mui/material/ButtonBase/TouchRipple';
 
 export function Search() {
 
@@ -10,7 +9,8 @@ export function Search() {
 
     const [term, setTerm] = useState('')
     const [json, setJson] = useState([])
-    const [pageState, setPageState] = useState(true)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [imagesPerPage, setImagesPerPage] = useState(4);
 
     const handleSearch = async (newTerm) => {
         let response = await fetch(`https://api.unsplash.com/search/photos?query=${newTerm}&client_id=cr4k_yImLDT24QYPslx4d5U9plFlqqyjdeoFXgI4vXI`)
@@ -23,16 +23,19 @@ export function Search() {
         const newTerm = e.target.value;
         setTerm(newTerm);
         handleSearch(newTerm);
-        if (json) {
-            setPageState(!pageState);
-        }else if (json == ''){
-            setPageState(!pageState);
-        }
     }
 
 
     const handleAdd = (image) => {
         dispatch(add(image))
+    }
+
+    const indexOfLastImage = currentPage * imagesPerPage;
+    const indexOfFirstImage = indexOfLastImage - imagesPerPage;
+    const currentImages = json.slice(indexOfFirstImage, indexOfLastImage);
+
+    const handleChangePage = (event, newPage) => {
+        setCurrentPage(newPage)
     }
 
     return (
@@ -51,7 +54,7 @@ export function Search() {
                 justifyContent="center" 
                 alignItems="flex-start">
                 <ImageList cols={4}>
-                    {json.map((image) => (
+                    {currentImages.map((image) => (
                         <ImageListItem sx={{ maxWidth: 300 }} key={image.id}>
                             <img
                                 src={image.urls.small}
@@ -67,7 +70,7 @@ export function Search() {
                 </ImageList>
             </Grid>
             <Stack spacing={2} style={{ alignItems: 'center' }}>
-                <Pagination disabled={pageState} count={3} color="secondary" />
+                <Pagination component='div' page={currentPage} count={3} color="secondary" onChange={handleChangePage}/>
             </Stack>
         </div>
     </div>
