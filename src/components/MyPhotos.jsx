@@ -152,7 +152,7 @@ export function MyPhotos() {
                             position="below"
                             subtitle={
                                 <>   
-                                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', flexWrap: 'wrap', fontSize: 14, backgroundColor: 'black', opacity: 0.8, color: 'white', padding: 5, lineHeight: 1.4 }}>
+                                    <ul style={{ listStyle: 'none', display: 'block', textAlign: 'center', backgroundColor: 'black', opacity: 0.8, color: 'white', padding: 5, lineHeight: 1.4 }}>
                                         {image.description &&
                                         <li>{image.description}</li>}
                                         <li>Size: {image.height}x{image.width}</li>
