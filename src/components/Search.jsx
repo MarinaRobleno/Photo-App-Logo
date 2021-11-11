@@ -52,7 +52,7 @@ export function Search() {
                 direction="row" 
                 justifyContent="center" 
                 alignItems="flex-start" >
-                <TextField id="outlined-basic" label="Start searching here..." value={term} variant="outlined" onChange={setSearchTerm}/>
+                <TextField id="outlined-basic" label="Start searching here..." value={term} variant="outlined" onChange={setSearchTerm} style={{ width: 500 }}/>
             </Grid>
         </div>
         <div>

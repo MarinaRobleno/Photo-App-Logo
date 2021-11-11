@@ -110,7 +110,7 @@ export function MyPhotos() {
                     direction="row" 
                     justifyContent="center">
                     <TextField id="outlined-basic" label="Search description..." variant="outlined" onChange={handleSearchDescription} style={{ margin: 2 }}/>
-                    <Box sx={{ minWidth: 200 }} style={{ margin: 2 }}>
+                    <Box sx={{ minWidth: 120 }} style={{ margin: 2 }}>
                         <FormControl fullWidth >
                             <InputLabel id="demo-simple-select-label">Sort By...</InputLabel>
                             <Select
@@ -131,7 +131,7 @@ export function MyPhotos() {
             </div>
             <Stack direction="row" spacing={1} style={{ justifyContent: 'center', marginTop: 10 }}>
                 {existingTags.map((tag) => (
-                    <Chip key={tag} label={tag} value={tag} onDelete={() => handleDeleteTag(tag)} />)
+                    <Chip color='secondary' key={tag} label={tag} value={tag} onDelete={() => handleDeleteTag(tag)} />)
                 )}
             </Stack>
             <Grid container 
