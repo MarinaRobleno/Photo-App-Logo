@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Paper, Pagination, Chip, Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Box, Button, Typography, Modal, InputLabel, MenuItem, FormControl, Select } from '@mui/material'
+import { Grid, Pagination, Chip, Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Box, Button, Typography, Modal, InputLabel, MenuItem, FormControl, Select } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux';
 import { remove, edit, orderBy, removeTag, selectMyPhotos } from '../slices/myPhotosSlice.js';
 import { BiArrowToBottom, BiEditAlt, BiTrash } from 'react-icons/bi';

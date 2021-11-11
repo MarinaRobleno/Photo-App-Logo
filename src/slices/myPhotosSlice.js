@@ -41,7 +41,7 @@ export const myPhotosSlice = createSlice({
         },
         removeTag: (state, action) => {
             state.myPhotos = state.myPhotos.filter(photo => photo.tag !== action.payload)
-            saveState(state.myPhotos);
+
         }
     }
 })
