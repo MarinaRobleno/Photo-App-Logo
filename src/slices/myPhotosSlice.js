@@ -38,12 +38,16 @@ export const myPhotosSlice = createSlice({
                     return 0;
             })
             
+        },
+        removeTag: (state, action) => {
+            state.myPhotos = state.myPhotos.filter(photo => photo.tag !== action.payload)
+            saveState(state.myPhotos);
         }
     }
 })
 
 export const selectMyPhotos = (state) => state.myPhotos;
 
-export const { add, remove, edit, orderBy } = myPhotosSlice.actions
+export const { add, remove, edit, orderBy, removeTag } = myPhotosSlice.actions
 
 export default myPhotosSlice.reducer;

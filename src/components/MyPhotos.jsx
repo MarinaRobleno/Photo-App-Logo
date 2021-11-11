@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Paper, Pagination, Chip, Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Box, Button, Typography, Modal, InputLabel, MenuItem, FormControl, Select } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux';
-import { remove, edit, orderBy, selectMyPhotos } from '../slices/myPhotosSlice.js';
+import { remove, edit, orderBy, removeTag, selectMyPhotos } from '../slices/myPhotosSlice.js';
 import { BiArrowToBottom, BiEditAlt, BiTrash } from 'react-icons/bi';
 
 
@@ -98,8 +98,9 @@ export function MyPhotos() {
         setExistingTags([... new Set(imageArray.map((image) => image.tag))])
     }, [myImages]); 
 
-    const handleDelete = (chipToDelete) => {
-        console.info('You clicked the delete icon.');
+    const handleDeleteTag = (chipToDelete) => {
+        console.log(chipToDelete)
+        dispatch(removeTag(chipToDelete))
       };
 
     return (
@@ -128,9 +129,9 @@ export function MyPhotos() {
                     </Box>
                 </Grid>
             </div>
-            <Stack direction="row" spacing={1}>
+            <Stack direction="row" spacing={1} style={{ justifyContent: 'center', marginTop: 10 }}>
                 {existingTags.map((tag) => (
-                    <Chip key={tag} label={tag} onDelete={handleDelete} />)
+                    <Chip key={tag} label={tag} value={tag} onDelete={() => handleDeleteTag(tag)} />)
                 )}
             </Stack>
             <Grid container 
