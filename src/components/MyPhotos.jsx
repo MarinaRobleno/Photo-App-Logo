@@ -131,7 +131,7 @@ export function MyPhotos() {
             </div>
             <Stack direction="row" spacing={1} style={{ justifyContent: 'center', marginTop: 10 }}>
                 {existingTags.map((tag) => (
-                    <Chip color='secondary' key={tag} label={tag} value={tag} onDelete={() => handleDeleteTag(tag)} />)
+                    <Chip color='secondary' key={tag} label={tag} onDelete={() => handleDeleteTag(tag)} />)
                 )}
             </Stack>
             <Grid container 
@@ -157,7 +157,7 @@ export function MyPhotos() {
                             position="below"
                             subtitle={
                                 <>   
-                                    <ul style={{ listStyle: 'none', display: 'block', textAlign: 'center', backgroundColor: 'black', opacity: 0.8, color: 'white', padding: 5, lineHeight: 1.4 }}>
+                                    <ul style={{ listStyle: 'none', display: 'block', textAlign: 'center', whiteSpace:'wrap', backgroundColor: 'black', opacity: 0.8, color: 'white', padding: 5, lineHeight: 1.4 }}>
                                         {image.description &&
                                         <li>{image.description}</li>}
                                         <li>Size: {image.height}x{image.width}</li>
@@ -206,12 +206,12 @@ export function MyPhotos() {
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{ bgcolor: 'background.paper', display: 'block', textAlign: 'center' }}>
                         <input onChange={inputHandler} placeholder='type something here...' style={{ height: 10, padding: 12, margin: 2, border: 'none' }}></input>
-                        <Button variant="contained" color='secondary' onClick={() => saveNewDescription()}>Save</Button>
+                        <Button variant="contained" color='secondary' onClick={saveNewDescription}>Save</Button>
                     </Typography>
                 </Box>
             </Modal>
             <Stack spacing={2} style={{ alignItems: 'center', marginBottom: 10 }}>
-                <Pagination component='div' page={currentPage} count={pages} color="secondary" onChange={handleChangePage}/>
+                <Pagination component='div' defaultPage={1} page={currentPage} count={pages} color="secondary" onChange={handleChangePage}/>
             </Stack>
             
         </div>

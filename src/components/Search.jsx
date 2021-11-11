@@ -39,6 +39,7 @@ export function Search() {
     useEffect(() => {
         const maxPages = Math.ceil(json.length/4);
         setPages(maxPages);
+        setCurrentPage(1);
     }, [json])
 
     const handleChangePage = (event, newPage) => {
@@ -77,7 +78,7 @@ export function Search() {
                 </ImageList>
             </Grid>
             <Stack spacing={2} style={{ alignItems: 'center' }}>
-                <Pagination component='div' page={currentPage} count={pages} color="secondary" onChange={handleChangePage}/>
+                <Pagination component='div' defaultPage={1} page={currentPage} count={pages} color="secondary" onChange={handleChangePage}/>
             </Stack>
         </div>
     </div>
