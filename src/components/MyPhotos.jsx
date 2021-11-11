@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Grid, PaginationItem, TextField, ImageList, ImageListItem, ImageListItemBar, Box, Button, Typography, Modal, InputLabel, MenuItem, FormControl, Select } from '@mui/material'
+import React, { useState } from 'react';
+import { Grid, Pagination, PaginationItem, Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Box, Button, Typography, Modal, InputLabel, MenuItem, FormControl, Select } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux';
 import { remove, edit, orderBy, selectMyPhotos } from '../slices/myPhotosSlice.js';
 import { BiArrowToBottom, BiEditAlt, BiTrash } from 'react-icons/bi';
@@ -78,8 +78,8 @@ export function MyPhotos() {
                 <Grid container 
                     direction="row" 
                     justifyContent="center">
-                    <TextField id="outlined-basic" label="Search description..." variant="outlined" onChange={handleSearchDescription}/>
-                    <Box sx={{ minWidth: 200 }}>
+                    <TextField id="outlined-basic" label="Search description..." variant="outlined" onChange={handleSearchDescription} style={{ margin: 2 }}/>
+                    <Box sx={{ minWidth: 200 }} style={{ margin: 2 }}>
                         <FormControl fullWidth >
                             <InputLabel id="demo-simple-select-label">Sort By...</InputLabel>
                             <Select
@@ -173,6 +173,9 @@ export function MyPhotos() {
                     </Typography>
                 </Box>
             </Modal>
+            <Stack spacing={2} style={{ alignItems: 'center' }}>
+                <Pagination count={5} color="secondary" />
+            </Stack>
             
         </div>
     )

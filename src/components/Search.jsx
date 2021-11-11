@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import {Button} from '@mui/material';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import Grid from '@mui/material/Grid';
+import {Button, Pagination, PaginationItem, Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Grid} from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { add } from '../slices/myPhotosSlice.js';
+import TouchRipple from '@mui/material/ButtonBase/TouchRipple';
 
 export function Search() {
 
@@ -14,6 +10,7 @@ export function Search() {
 
     const [term, setTerm] = useState('')
     const [json, setJson] = useState([])
+    const [pageState, setPageState] = useState(true)
 
     const handleSearch = async (newTerm) => {
         let response = await fetch(`https://api.unsplash.com/search/photos?query=${newTerm}&client_id=cr4k_yImLDT24QYPslx4d5U9plFlqqyjdeoFXgI4vXI`)
@@ -26,6 +23,11 @@ export function Search() {
         const newTerm = e.target.value;
         setTerm(newTerm);
         handleSearch(newTerm);
+        if (json) {
+            setPageState(!pageState);
+        }else if (json == ''){
+            setPageState(!pageState);
+        }
     }
 
 
@@ -64,6 +66,9 @@ export function Search() {
                     ))}
                 </ImageList>
             </Grid>
+            <Stack spacing={2} style={{ alignItems: 'center' }}>
+                <Pagination disabled={pageState} count={3} color="secondary" />
+            </Stack>
         </div>
     </div>
     )
