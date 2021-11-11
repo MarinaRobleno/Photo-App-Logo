@@ -46,7 +46,7 @@ export function MyPhotos() {
     const handleSearchDescription = (e) => {
         setFilteredTerm(e.target.value);
     }
-// PAGINATION
+
 
     var today = new Date();
     var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
@@ -72,6 +72,18 @@ export function MyPhotos() {
     const download = (image) => {
         window.open(image.urlFull, '_blank');
     }
+
+    // PAGINATION
+    const [currentPage, setCurrentPage] = useState(1);
+    const [imagesPerPage, setImagesPerPage] = useState(4);
+    
+    const indexOfLastImage = currentPage * imagesPerPage;
+    const indexOfFirstImage = indexOfLastImage - imagesPerPage;
+    const currentImages = imageArray.slice(indexOfFirstImage, indexOfLastImage);
+
+    const handleChangePage = (event, newPage) => {
+        setCurrentPage(newPage)
+}
 
     return (
         <div>
@@ -104,7 +116,7 @@ export function MyPhotos() {
                 justifyContent="center" 
                 alignItems="flex-start">
             <ImageList cols={4}>
-            {imageArray
+            {currentImages
                 .filter((image) => {
                     if (filteredTerm == ''){
                         return image;
@@ -175,7 +187,7 @@ export function MyPhotos() {
                 </Box>
             </Modal>
             <Stack spacing={2} style={{ alignItems: 'center' }}>
-                <Pagination count={5} color="secondary" />
+                <Pagination component='div' page={currentPage} count={5} color="secondary" onChange={handleChangePage}/>
             </Stack>
             
         </div>
