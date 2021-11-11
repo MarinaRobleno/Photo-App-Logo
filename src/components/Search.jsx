@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Button, Pagination, PaginationItem, TablePagination , Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Grid} from '@mui/material';
+import {Button, Pagination, Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Grid} from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { add } from '../slices/myPhotosSlice.js';
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Pagination, PaginationItem, Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Box, Button, Typography, Modal, InputLabel, MenuItem, FormControl, Select } from '@mui/material'
+import { Grid, Paper, Pagination, Chip, Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Box, Button, Typography, Modal, InputLabel, MenuItem, FormControl, Select } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux';
 import { remove, edit, orderBy, selectMyPhotos } from '../slices/myPhotosSlice.js';
 import { BiArrowToBottom, BiEditAlt, BiTrash } from 'react-icons/bi';
@@ -91,6 +91,11 @@ export function MyPhotos() {
         setCurrentPage(newPage)
 }
 
+    /*CHIPS
+    const handleDelete = (chipToDelete) => {
+        console.info('You clicked the delete icon.');
+      };*/
+
     return (
         <div>
             <div>
@@ -117,9 +122,13 @@ export function MyPhotos() {
                     </Box>
                 </Grid>
             </div>
-            <Stack spacing={2} style={{ alignItems: 'center', marginTop: 10 }}>
-                <Pagination component='div' page={currentPage} count={pages} color="secondary" onChange={handleChangePage}/>
-            </Stack>
+            {/*<Paper sx={{ display: 'flex', flexWrap: 'wrap', p: 0.5, m: 0, }}>
+                <Stack direction="row" spacing={1}>
+                    {imageArray.map((image) => (
+                        <Chip key={image.id} label='Chip' onDelete={handleDelete} />)
+                    )}
+                </Stack>
+                    </Paper>*/}
             <Grid container 
                 direction="row" 
                 justifyContent="center" 
@@ -143,7 +152,7 @@ export function MyPhotos() {
                             position="below"
                             subtitle={
                                 <>   
-                                    <ul style={{ listStyle: 'none', display: 'block', inlineSize: 300, overflowWrap: 'break-word', fontSize: 14, backgroundColor: 'black', opacity: 0.8, color: 'white', padding: 5, textAlign: 'center', lineHeight: 1.4 }}>
+                                    <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', flexWrap: 'wrap', fontSize: 14, backgroundColor: 'black', opacity: 0.8, color: 'white', padding: 5, lineHeight: 1.4 }}>
                                         {image.description &&
                                         <li>{image.description}</li>}
                                         <li>Size: {image.height}x{image.width}</li>
@@ -196,7 +205,9 @@ export function MyPhotos() {
                     </Typography>
                 </Box>
             </Modal>
-
+            <Stack spacing={2} style={{ alignItems: 'center', marginBottom: 10 }}>
+                <Pagination component='div' page={currentPage} count={pages} color="secondary" onChange={handleChangePage}/>
+            </Stack>
             
         </div>
     )
