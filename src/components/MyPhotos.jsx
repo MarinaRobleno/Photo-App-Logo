@@ -64,7 +64,8 @@ export function MyPhotos() {
                 urlFull: photo.urls.full,
                 urlRegular: photo.urls.regular,
                 urlThumb: photo.urls.thumb,
-                date: dateTime
+                date: dateTime,
+                tag: photo.tag
             }
         
     });

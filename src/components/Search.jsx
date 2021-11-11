@@ -28,6 +28,7 @@ export function Search() {
 
 
     const handleAdd = (image) => {
+        image.tag = term;
         dispatch(add(image))
     }
 
