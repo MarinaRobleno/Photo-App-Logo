@@ -117,6 +117,9 @@ export function MyPhotos() {
                     </Box>
                 </Grid>
             </div>
+            <Stack spacing={2} style={{ alignItems: 'center', marginTop: 10 }}>
+                <Pagination component='div' page={currentPage} count={pages} color="secondary" onChange={handleChangePage}/>
+            </Stack>
             <Grid container 
                 direction="row" 
                 justifyContent="center" 
@@ -140,12 +143,12 @@ export function MyPhotos() {
                             position="below"
                             subtitle={
                                 <>   
-                                    <ul style={{ listStyle: 'none', display: 'block', backgroundColor: 'black', opacity: 0.8, color: 'white', padding: 5, textAlign: 'center', lineHeight: 1.4 }}>
+                                    <ul style={{ listStyle: 'none', display: 'block', inlineSize: 300, overflowWrap: 'break-word', fontSize: 14, backgroundColor: 'black', opacity: 0.8, color: 'white', padding: 5, textAlign: 'center', lineHeight: 1.4 }}>
                                         {image.description &&
-                                        <li>Description: {image.description}</li>}
+                                        <li>{image.description}</li>}
                                         <li>Size: {image.height}x{image.width}</li>
                                         <li>❤ {image.likes}</li>
-                                        <li>Date added: {image.date}</li>
+                                        <li>Added: {image.date}</li>
                                     </ul>
                                     <div className='photo-buttons' style={{ display: 'block', textAlign: 'center', backgroundColor: 'black', opacity: 0.8, padding: 5 }}>
                                         <Button variant="text" onClick={() => removePhotoHandler(image)} color='secondary'>
@@ -170,6 +173,7 @@ export function MyPhotos() {
                 onClose={() => setEditing(null)}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                disableScrollLock='true'
             >
                 <Box style = {{
                     position: 'absolute',
@@ -183,18 +187,16 @@ export function MyPhotos() {
                     border: '2px solid white',
                     boxShadow: 24,
                     p: 4}}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2" style={{ display: 'block', textAlign: 'center', paddingTop: 30 }}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2" style={{ display: 'block', textAlign: 'center', paddingTop: 50 }}>
                         Write a new description:
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{ bgcolor: 'background.paper', display: 'block', textAlign: 'center' }}>
-                        <input onChange={inputHandler} placeholder='type something here...' style={{ height: 10, padding: 12, margin: 2 }}></input>
+                        <input onChange={inputHandler} placeholder='type something here...' style={{ height: 10, padding: 12, margin: 2, border: 'none' }}></input>
                         <Button variant="contained" color='secondary' onClick={() => saveNewDescription()}>Save</Button>
                     </Typography>
                 </Box>
             </Modal>
-            <Stack spacing={2} style={{ alignItems: 'center' }}>
-                <Pagination component='div' page={currentPage} count={pages} color="secondary" onChange={handleChangePage}/>
-            </Stack>
+
             
         </div>
     )
