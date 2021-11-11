@@ -92,10 +92,15 @@ export function MyPhotos() {
         setCurrentPage(newPage)
 }
 
-    /*CHIPS
+    //CHIPS
+    const [existingTags, setExistingTags] = useState([]);
+    useEffect(() => {
+        setExistingTags([... new Set(imageArray.map((image) => image.tag))])
+    }, [myImages]); 
+
     const handleDelete = (chipToDelete) => {
         console.info('You clicked the delete icon.');
-      };*/
+      };
 
     return (
         <div>
@@ -123,13 +128,11 @@ export function MyPhotos() {
                     </Box>
                 </Grid>
             </div>
-            {/*<Paper sx={{ display: 'flex', flexWrap: 'wrap', p: 0.5, m: 0, }}>
-                <Stack direction="row" spacing={1}>
-                    {imageArray.map((image) => (
-                        <Chip key={image.id} label='Chip' onDelete={handleDelete} />)
-                    )}
-                </Stack>
-                    </Paper>*/}
+            <Stack direction="row" spacing={1}>
+                {existingTags.map((tag) => (
+                    <Chip key={tag} label={tag} onDelete={handleDelete} />)
+                )}
+            </Stack>
             <Grid container 
                 direction="row" 
                 justifyContent="center" 
