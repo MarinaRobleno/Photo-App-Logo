@@ -1,4 +1,4 @@
-import '../styles/Search.css';
+import '../styles/Search.scss';
 import React, { useState, useEffect } from 'react';
 import {Button, Pagination, Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Grid} from '@mui/material';
 import { useDispatch } from 'react-redux';
@@ -61,7 +61,7 @@ export function Search() {
     }
 
     return (
-    <div>
+    <div id='search'>
         <ThemeProvider theme={theme}>
             <div className='search-bar'>
                 <TextField className='search-bar-item' id="outlined-basic" label="Start searching here..." color='myBlue' value={term} variant="outlined" onChange={setSearchTerm}/>
@@ -70,12 +70,13 @@ export function Search() {
                 <div className='image-list'>
                     <ImageList cols={4}>
                         {currentImages.map((image) => (
-                            <ImageListItem sx={{ maxWidth: 300 }} key={image.id}>
-                                <img
-                                    className='photo'
-                                    src={image.urls.small}
-                                    alt=''
-                                />
+                            <ImageListItem className='image-container' sx={{ maxWidth: 300, maxHeight: 300 }} key={image.id}>
+                                    <img
+                                        className='photo'
+                                        src={image.urls.small}
+                                        alt=''
+                                    />
+                                
                                 <ImageListItemBar
                                     position="bottom"
                                     subtitle={
