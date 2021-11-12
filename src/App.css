@@ -47,7 +47,7 @@
   top: 0px;
   max-width: none;
   background-color: 'white'; 
-  background: #FFFFFF 0% 0% no-repeat padding-box;
+  background: #685cf4 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   height: 50;
   align-items: center;
@@ -55,10 +55,11 @@
 
 .header .camera-icon{
   margin-left: 20px;
+  color: #ffffff;
 }
 
-.header h2{
+.header .app-title{
   margin-left: 5px;
-  color: #9c27b0;
+  color: #ffffff;
 }
 
