@@ -114,7 +114,6 @@ export function MyPhotos() {
     }, [myImages]); 
 
     const handleDeleteTag = (chipToDelete) => {
-        console.log(chipToDelete)
         dispatch(removeTag(chipToDelete))
       };
 

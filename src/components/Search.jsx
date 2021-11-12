@@ -25,7 +25,7 @@ export function Search() {
     const [json, setJson] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const [pages, setPages] = useState(1)
-    const [imagesPerPage, setImagesPerPage] = useState(4);
+    const [imagesPerPage, setImagesPerPage] = useState(12);
 
     const handleSearch = async (newTerm) => {
         let response = await fetch(`https://api.unsplash.com/search/photos?query=${newTerm}&client_id=cr4k_yImLDT24QYPslx4d5U9plFlqqyjdeoFXgI4vXI&per_page=50`)
@@ -51,7 +51,7 @@ export function Search() {
     const currentImages = json.slice(indexOfFirstImage, indexOfLastImage);
 
     useEffect(() => {
-        const maxPages = Math.ceil(json.length/4);
+        const maxPages = Math.ceil(json.length/12);
         setPages(maxPages);
         setCurrentPage(1);
     }, [json])
@@ -64,17 +64,15 @@ export function Search() {
     <div>
         <ThemeProvider theme={theme}>
             <div className='search-bar'>
-                <TextField className='search-bar-item' id="outlined-basic" label="Start searching here..." value={term} variant="outlined" onChange={setSearchTerm}/>
+                <TextField className='search-bar-item' id="outlined-basic" label="Start searching here..." color='myBlue' value={term} variant="outlined" onChange={setSearchTerm}/>
             </div>
             <div>
-                <Grid container 
-                    direction="row" 
-                    justifyContent="center" 
-                    alignItems="flex-start">
+                <div className='image-list'>
                     <ImageList cols={4}>
                         {currentImages.map((image) => (
                             <ImageListItem sx={{ maxWidth: 300 }} key={image.id}>
                                 <img
+                                    className='photo'
                                     src={image.urls.small}
                                     alt=''
                                 />
@@ -86,7 +84,7 @@ export function Search() {
                             </ImageListItem>
                         ))}
                     </ImageList>
-                </Grid>
+                </div>
                 <Stack spacing={2} style={{ alignItems: 'center' }}>
                     <Pagination component='div' defaultPage={1} page={currentPage} count={pages} color="myBlue" onChange={handleChangePage}/>
                 </Stack>
