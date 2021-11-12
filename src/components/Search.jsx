@@ -4,6 +4,7 @@ import {Button, Pagination, Stack, TextField, ImageList, ImageListItem, ImageLis
 import { useDispatch } from 'react-redux';
 import { add } from '../slices/myPhotosSlice.js';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import SearchIcon from '@mui/icons-material/Search';
 
 export function Search() {
     const theme = createTheme({
@@ -65,6 +66,7 @@ export function Search() {
         <ThemeProvider theme={theme}>
             <div className='search-bar'>
                 <TextField className='search-bar-item' id="outlined-basic" label="Start searching here..." color='myBlue' value={term} variant="outlined" onChange={setSearchTerm}/>
+                <SearchIcon className='magnifying-glass' fontSize='large' color='myBlue' />
             </div>
             <div>
                 <div className='image-list'>

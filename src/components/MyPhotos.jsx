@@ -91,7 +91,7 @@ export function MyPhotos() {
 
     // PAGINATION
     const [currentPage, setCurrentPage] = useState(1);
-    const [imagesPerPage, setImagesPerPage] = useState(4);
+    const [imagesPerPage, setImagesPerPage] = useState(12);
     const [pages, setPages] = useState(1)
     
     const indexOfLastImage = currentPage * imagesPerPage;
@@ -99,7 +99,7 @@ export function MyPhotos() {
     const currentImages = imageArray.slice(indexOfFirstImage, indexOfLastImage);
 
     useEffect(() => {
-        const maxPages = Math.ceil(imageArray.length/4);
+        const maxPages = Math.ceil(imageArray.length/12);
         setPages(maxPages);
     }, [myImages])
 
@@ -140,58 +140,55 @@ export function MyPhotos() {
                     </FormControl>
                     <Stack className='tag-list' direction="row" spacing={1}>
                         {existingTags.map((tag) => (
-                            <Chip color='myBlue' key={tag} label={tag} onDelete={() => handleDeleteTag(tag)} />)
+                            <Chip className='tag' color='myBlue' key={tag} label={tag} onDelete={() => handleDeleteTag(tag)} />)
                         )}
                     </Stack>
                 </div>
-                <Grid container 
-                    direction="row" 
-                    justifyContent="center" 
-                    alignItems="flex-start">
-                <ImageList cols={4}>
-                {currentImages
-                    .filter((image) => {
-                        if (filteredTerm == ''){
-                            return image;
-                        }else if (String(image.description).toLowerCase().includes(filteredTerm.toLowerCase())){
-                            return image;
-                        }
-                    })
-                    .map((image) => (
-                        <ImageListItem key={image.id} sx={{ maxWidth: 300 }}>
-                            <img
-                                src={image.urlRegular}
-                                alt={image.alt}
-                            />
-                            <ImageListItemBar
-                                position="below"
-                                subtitle={
-                                    <>   
-                                        <ul style={{ listStyle: 'none', display: 'block', textAlign: 'center', whiteSpace:'wrap', backgroundColor: 'black', opacity: 0.8, color: 'white', padding: 5, lineHeight: 1.4 }}>
-                                            {image.description &&
-                                            <li>{image.description}</li>}
-                                            <li>Size: {image.height}x{image.width}</li>
-                                            <li>❤ {image.likes}</li>
-                                            <li>Added: {image.date}</li>
-                                        </ul>
-                                        <div className='photo-buttons' style={{ display: 'block', textAlign: 'center', backgroundColor: 'black', opacity: 0.8, padding: 5 }}>
-                                            <Button variant="text" onClick={() => removePhotoHandler(image)} color='myBlue'>
-                                                <BiTrash />
-                                            </Button>
-                                            <Button variant="text" onClick={() => editPhotoHandler(image)} color='myBlue'>
-                                                <BiEditAlt />
-                                            </Button>
-                                            <Button variant="text" onClick={() => download(image)} color='myBlue'>
-                                                <BiArrowToBottom />
-                                            </Button>
-                                        </div>
-                                    </>
-                                }
-                            />
-                        </ImageListItem>
-                ))}
-                </ImageList>
-                </Grid>
+                <div className='image-list'>
+                    <ImageList cols={4}>
+                    {currentImages
+                        .filter((image) => {
+                            if (filteredTerm == ''){
+                                return image;
+                            }else if (String(image.description).toLowerCase().includes(filteredTerm.toLowerCase())){
+                                return image;
+                            }
+                        })
+                        .map((image) => (
+                            <ImageListItem className='image-container' key={image.id} sx={{ maxWidth: 300 }}>
+                                <img
+                                    src={image.urlRegular}
+                                    alt={image.alt}
+                                />
+                                <ImageListItemBar
+                                    position="bottom"
+                                    subtitle={
+                                        <>   
+                                            <ul style={{ listStyle: 'none', display: 'block', textAlign: 'center', whiteSpace:'wrap', opacity: 0.8, color: 'white', padding: 5, lineHeight: 1.4 }}>
+                                                {image.description &&
+                                                <li>{image.description}</li>}
+                                                <li>Size: {image.height}x{image.width}</li>
+                                                <li>❤ {image.likes}</li>
+                                                <li>Added: {image.date}</li>
+                                            </ul>
+                                            <div className='photo-buttons' style={{ display: 'block', textAlign: 'center', opacity: 0.8, padding: 5 }}>
+                                                <Button variant="text" onClick={() => removePhotoHandler(image)} color='myBlue'>
+                                                    <BiTrash />
+                                                </Button>
+                                                <Button variant="text" onClick={() => editPhotoHandler(image)} color='myBlue'>
+                                                    <BiEditAlt />
+                                                </Button>
+                                                <Button variant="text" onClick={() => download(image)} color='myBlue'>
+                                                    <BiArrowToBottom />
+                                                </Button>
+                                            </div>
+                                        </>
+                                    }
+                                />
+                            </ImageListItem>
+                    ))}
+                    </ImageList>
+                </div>
                 <Modal
                     open={editing != null}
                     onClose={() => setEditing(null)}

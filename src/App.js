@@ -25,7 +25,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <div className='header'>
           <IconContext.Provider value={{ className: "camera-icon" }}>
-            <FaCameraRetro />
+            <FaCameraRetro fontSize='large' />
           </IconContext.Provider>
           <h3 className='app-title'>PHOTO APP LOGO</h3>
           <Box sx={{ flexGrow: 1 }}>
