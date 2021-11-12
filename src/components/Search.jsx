@@ -14,7 +14,7 @@ export function Search() {
     const [imagesPerPage, setImagesPerPage] = useState(4);
 
     const handleSearch = async (newTerm) => {
-        let response = await fetch(`https://api.unsplash.com/search/photos?query=${newTerm}&client_id=cr4k_yImLDT24QYPslx4d5U9plFlqqyjdeoFXgI4vXI`)
+        let response = await fetch(`https://api.unsplash.com/search/photos?query=${newTerm}&client_id=cr4k_yImLDT24QYPslx4d5U9plFlqqyjdeoFXgI4vXI&per_page=50`)
         let json = await response.json()
         setJson(json.results);
     };
