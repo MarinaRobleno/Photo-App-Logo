@@ -1,0 +1,23 @@
+#my-photos{
+    .photo-filters{
+        display: inline-flex;
+        margin: 20px 55px;
+        width: 100%;
+
+        .search-description{
+            width: 400px;
+            margin-left: 10px;
+        }
+
+        .select-order{
+            width: 120px;
+            margin: 0px 10px;
+        }
+
+        .tag-list{
+            justify-content: flex-end;
+            margin: 'none';
+            width: 50%;
+        }
+    }
+}

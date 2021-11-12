@@ -1,4 +1,4 @@
-import '../styles/App.scss';
+import '../styles/MyPhotos.scss';
 import React, { useState, useEffect } from 'react';
 import { Grid, Pagination, Chip, Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Box, Button, Typography, Modal, InputLabel, MenuItem, FormControl, Select } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux';
@@ -118,37 +118,32 @@ export function MyPhotos() {
       };
 
     return (
-        <div>
+        <div id='my-photos'>
             <ThemeProvider theme={theme}>
-                <div>
-                    <Grid container 
-                        direction="row" 
-                        justifyContent="center">
-                        <TextField id="outlined-basic" label="Search description..." variant="outlined" onChange={handleSearchDescription} style={{ margin: 2 }}/>
-                        <Box sx={{ minWidth: 120 }} style={{ margin: 2 }}>
-                            <FormControl fullWidth >
-                                <InputLabel id="demo-simple-select-label">Sort By...</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={select}
-                                    label="Order"
-                                    onChange={handleSelect}
-                                >
-                                    <MenuItem value={'date'}>Date</MenuItem>
-                                    <MenuItem value={'width'}>Width</MenuItem>
-                                    <MenuItem value={'height'}>Height</MenuItem>
-                                    <MenuItem value={'likes'}>Likes</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </Grid>
+                <div className='photo-filters' >
+                    <TextField className='search-description' id="outlined-basic" label="Search description..." variant="outlined" color='myBlue' onChange={handleSearchDescription} />
+                    <FormControl className='select-order'>
+                        <InputLabel id="demo-simple-select-label">Sort By...</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={select}
+                            label="Order"
+                            onChange={handleSelect}
+                            color='myBlue'
+                        >
+                            <MenuItem value={'date'}>Date</MenuItem>
+                            <MenuItem value={'width'}>Width</MenuItem>
+                            <MenuItem value={'height'}>Height</MenuItem>
+                            <MenuItem value={'likes'}>Likes</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <Stack className='tag-list' direction="row" spacing={1}>
+                        {existingTags.map((tag) => (
+                            <Chip color='myBlue' key={tag} label={tag} onDelete={() => handleDeleteTag(tag)} />)
+                        )}
+                    </Stack>
                 </div>
-                <Stack direction="row" spacing={1} style={{ justifyContent: 'center', marginTop: 10 }}>
-                    {existingTags.map((tag) => (
-                        <Chip color='myBlue' key={tag} label={tag} onDelete={() => handleDeleteTag(tag)} />)
-                    )}
-                </Stack>
                 <Grid container 
                     direction="row" 
                     justifyContent="center" 

@@ -86,7 +86,7 @@ export function Search() {
                         ))}
                     </ImageList>
                 </div>
-                <Stack spacing={2} style={{ alignItems: 'center' }}>
+                <Stack className='pagination' spacing={2} style={{ alignItems: 'center' }}>
                     <Pagination component='div' defaultPage={1} page={currentPage} count={pages} color="myBlue" onChange={handleChangePage}/>
                 </Stack>
             </div>

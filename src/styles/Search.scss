@@ -18,12 +18,19 @@
   }
 
   .image-container{
-
+    margin-bottom: 15px;
     overflow: hidden;
+    border-radius: 5%;
+    box-shadow: 5px 10px 24px #00000029;
     img{
       width: 300px;
       height: 300px;
       object-fit: cover;
+
     }
+  }
+
+  .pagination{
+    margin-bottom: 10px;
   }
 }
