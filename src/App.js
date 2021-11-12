@@ -1,4 +1,4 @@
-import './App.css';
+import './styles/App.css';
 import React from 'react';
 import Button from '@mui/material/Button';
 import { MyPhotos } from './components/MyPhotos.jsx'

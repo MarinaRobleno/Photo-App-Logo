@@ -1,0 +1,9 @@
+.search-bar{
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .search-bar .search-bar-item {
+    width: 800px;
+  }

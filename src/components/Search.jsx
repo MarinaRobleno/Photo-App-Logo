@@ -1,9 +1,23 @@
+import '../styles/Search.css';
 import React, { useState, useEffect } from 'react';
 import {Button, Pagination, Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Grid} from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { add } from '../slices/myPhotosSlice.js';
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 export function Search() {
+    const theme = createTheme({
+        palette: {
+          neutral: {
+            main: '#ffffff',
+            contrastText: '#fff',
+          },
+          myBlue: {
+              main: '#685cf4',
+              contrastText: '#fff'
+          }
+        },
+      });
 
     const dispatch = useDispatch();
 
@@ -48,39 +62,36 @@ export function Search() {
 
     return (
     <div>
-        <div>
-            <Grid container 
-                direction="row" 
-                justifyContent="center" 
-                alignItems="flex-start" >
-                <TextField id="outlined-basic" label="Start searching here..." value={term} variant="outlined" onChange={setSearchTerm} style={{ width: 500 }}/>
-            </Grid>
-        </div>
-        <div>
-            <Grid container 
-                direction="row" 
-                justifyContent="center" 
-                alignItems="flex-start">
-                <ImageList cols={4}>
-                    {currentImages.map((image) => (
-                        <ImageListItem sx={{ maxWidth: 300 }} key={image.id}>
-                            <img
-                                src={image.urls.small}
-                                alt=''
-                            />
-                            <ImageListItemBar
-                                position="bottom"
-                                subtitle={
-                                    <Button variant="contained" color="secondary" onClick={() => handleAdd(image)}>❤</Button>}
-                            />
-                        </ImageListItem>
-                    ))}
-                </ImageList>
-            </Grid>
-            <Stack spacing={2} style={{ alignItems: 'center' }}>
-                <Pagination component='div' defaultPage={1} page={currentPage} count={pages} color="secondary" onChange={handleChangePage}/>
-            </Stack>
-        </div>
+        <ThemeProvider theme={theme}>
+            <div className='search-bar'>
+                <TextField className='search-bar-item' id="outlined-basic" label="Start searching here..." value={term} variant="outlined" onChange={setSearchTerm}/>
+            </div>
+            <div>
+                <Grid container 
+                    direction="row" 
+                    justifyContent="center" 
+                    alignItems="flex-start">
+                    <ImageList cols={4}>
+                        {currentImages.map((image) => (
+                            <ImageListItem sx={{ maxWidth: 300 }} key={image.id}>
+                                <img
+                                    src={image.urls.small}
+                                    alt=''
+                                />
+                                <ImageListItemBar
+                                    position="bottom"
+                                    subtitle={
+                                        <Button variant="contained" color="myBlue" onClick={() => handleAdd(image)}>❤</Button>}
+                                />
+                            </ImageListItem>
+                        ))}
+                    </ImageList>
+                </Grid>
+                <Stack spacing={2} style={{ alignItems: 'center' }}>
+                    <Pagination component='div' defaultPage={1} page={currentPage} count={pages} color="myBlue" onChange={handleChangePage}/>
+                </Stack>
+            </div>
+        </ThemeProvider>
     </div>
     )
 }
