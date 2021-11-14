@@ -24,7 +24,7 @@ export const myPhotosSlice = createSlice({
             saveState(state.myPhotos);
         },
         edit: (state, action) => {
-            state.myPhotos = state.myPhotos.map(photo => photo.id === action.payload.id ? {...photo, description: action.payload.description} : photo);
+            state.myPhotos = state.myPhotos.map(photo => photo.id === action.payload.id ? {...photo, alt_description: action.payload.description} : photo);
             saveState(state.myPhotos);
         },
         orderBy: (state, action) => {

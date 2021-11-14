@@ -73,8 +73,7 @@ export function MyPhotos() {
                 id: photo.id,
                 width: photo.width,
                 height: photo.height,
-                description: photo.description,
-                alt: photo.alt_description,
+                description: photo.alt_description,
                 likes: photo.likes,
                 urlFull: photo.urls.full,
                 urlRegular: photo.urls.regular,
@@ -109,12 +108,18 @@ export function MyPhotos() {
 
     //CHIPS
     const [existingTags, setExistingTags] = useState([]);
+    const [tagVariant, setTagVariant] = useState('contained');
     useEffect(() => {
         setExistingTags([... new Set(imageArray.map((image) => image.tag))])
     }, [myImages]); 
 
-    const handleDeleteTag = (chipToDelete) => {
-        dispatch(removeTag(chipToDelete))
+    const handleToggleTag = (chipToDelete) => {
+        if (tagVariant === 'contained'){
+            setTagVariant('outlined');
+        }else if(tagVariant === 'outlined'){
+            setTagVariant('contained');
+        }
+        //dispatch(removeTag(chipToDelete))
       };
 
     return (
@@ -140,7 +145,7 @@ export function MyPhotos() {
                     </FormControl>
                     <Stack className='tag-list' direction="row" spacing={1}>
                         {existingTags.map((tag) => (
-                            <Chip className='tag' color='myBlue' key={tag} label={tag} onDelete={() => handleDeleteTag(tag)} />)
+                            <Chip className='tag' color='myBlue' variant={tagVariant} key={tag} label={tag} onClick={() => handleToggleTag(tag)} />)
                         )}
                     </Stack>
                 </div>
@@ -158,27 +163,27 @@ export function MyPhotos() {
                             <ImageListItem className='image-container' key={image.id} sx={{ maxWidth: 300 }}>
                                 <img
                                     src={image.urlRegular}
-                                    alt={image.alt}
+                                    description={image.description}
                                 />
                                 <ImageListItemBar
+                                    className='image-item-bar'
                                     position="bottom"
                                     subtitle={
                                         <>   
-                                            <ul style={{ listStyle: 'none', display: 'block', textAlign: 'center', whiteSpace:'wrap', opacity: 0.8, color: 'white', padding: 5, lineHeight: 1.4 }}>
-                                                {image.description &&
-                                                <li>{image.description}</li>}
+                                            <ul className='image-text' style={{ listStyle: 'none', display: 'block', textAlign: 'center', opacity: 0.8, color: 'white', padding: 5, lineHeight: 1.4 }}>
+                                                <li>{image.description}</li>
                                                 <li>Size: {image.height}x{image.width}</li>
                                                 <li>❤ {image.likes}</li>
                                                 <li>Added: {image.date}</li>
                                             </ul>
                                             <div className='photo-buttons' style={{ display: 'block', textAlign: 'center', opacity: 0.8, padding: 5 }}>
-                                                <Button variant="text" onClick={() => removePhotoHandler(image)} color='myBlue'>
+                                                <Button variant="text" onClick={() => removePhotoHandler(image)} color='neutral'>
                                                     <BiTrash />
                                                 </Button>
-                                                <Button variant="text" onClick={() => editPhotoHandler(image)} color='myBlue'>
+                                                <Button variant="text" onClick={() => editPhotoHandler(image)} color='neutral'>
                                                     <BiEditAlt />
                                                 </Button>
-                                                <Button variant="text" onClick={() => download(image)} color='myBlue'>
+                                                <Button variant="text" onClick={() => download(image)} color='neutral'>
                                                     <BiArrowToBottom />
                                                 </Button>
                                             </div>
@@ -213,7 +218,7 @@ export function MyPhotos() {
                         </Typography>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{ bgcolor: 'background.paper', display: 'block', textAlign: 'center' }}>
                             <input onChange={inputHandler} placeholder='type something here...' style={{ height: 10, padding: 12, margin: 2, border: 'none' }}></input>
-                            <Button variant="contained" color='secondary' onClick={saveNewDescription}>Save</Button>
+                            <Button variant="contained" color='myBlue' onClick={saveNewDescription}>Save</Button>
                         </Typography>
                     </Box>
                 </Modal>
