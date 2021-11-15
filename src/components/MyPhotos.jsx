@@ -133,6 +133,8 @@ export function MyPhotos() {
                     </Stack>
                 </div>
                 <div className='image-list'>
+                    {imageArray.length === 0 ? 
+                        <div className='empty-message'>You haven't saved any photos yet!</div> :
                     <ImageList cols={4}>
                     {imageArray
                         .filter((image) => {
@@ -176,7 +178,7 @@ export function MyPhotos() {
                                 />
                             </ImageListItem>
                     ))}
-                    </ImageList>
+                    </ImageList> }
                 </div>
                 <Modal
                     open={editing != null}
