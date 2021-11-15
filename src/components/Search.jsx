@@ -29,12 +29,12 @@ export function Search() {
     const [term, setTerm] = useState('')
     const [json, setJson] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
-    const [pages, setPages] = useState(1)
-    const [imagesPerPage, setImagesPerPage] = useState(12);
+    const [pages, setPages] = useState(0)
 
     const handleSearch = async (newTerm) => {
-        let response = await fetch(`https://api.unsplash.com/search/photos?query=${newTerm}&client_id=cr4k_yImLDT24QYPslx4d5U9plFlqqyjdeoFXgI4vXI&per_page=50`)
+        let response = await fetch(`https://api.unsplash.com/search/photos?page=${currentPage}&query=${newTerm}&client_id=cr4k_yImLDT24QYPslx4d5U9plFlqqyjdeoFXgI4vXI&per_page=16`)
         let json = await response.json()
+        setPages(json.total_pages);
         setJson(json.results);
     };
 
@@ -49,16 +49,11 @@ export function Search() {
         image.tag = term.toLowerCase();
         dispatch(add(image));
     }
-
-    const indexOfLastImage = currentPage * imagesPerPage;
-    const indexOfFirstImage = indexOfLastImage - imagesPerPage;
-    const currentImages = json.slice(indexOfFirstImage, indexOfLastImage);
-
+    
     useEffect(() => {
-        const maxPages = Math.ceil(json.length/12);
-        setPages(maxPages);
-        setCurrentPage(1);
-    }, [json])
+        handleSearch(term);
+    }, [currentPage])
+
 
     const handleChangePage = (event, newPage) => {
         setCurrentPage(newPage)
@@ -74,7 +69,7 @@ export function Search() {
             <div>
                 <div className='image-list'>
                     <ImageList cols={4}>
-                        {currentImages.map((image) => (
+                        {json.map((image) => (
                             <ImageListItem className='image-container' sx={{ maxWidth: 300, maxHeight: 300 }} key={image.id}>
                                     <img
                                         className='photo'
