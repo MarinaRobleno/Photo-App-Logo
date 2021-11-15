@@ -17,6 +17,14 @@ function App() {
         main: '#ffffff',
         contrastText: '#fff',
       },
+      myBlue: {
+        main: '#685cf4',
+        contrastText: '#fff'
+      },
+      buttonBlue:{
+        main: '#ffffff',
+        contrast: '#685cf4'
+      }
     },
   });
   return (
@@ -37,12 +45,12 @@ function App() {
               >
               <Grid item xs='auto'>
                 <Link to='/search' style={{ textDecoration: 'none' }}>
-                  <Button variant="outlined" color='neutral' size='large' style={{ fontWeight: 'bold', margin: 10 }}>SEARCH</Button>
+                  <Button className='search-button' variant="contained" color='buttonBlue' size='large' style={{ fontWeight: 'bold', margin: 10 }}>SEARCH</Button>
                 </Link>
               </Grid>
               <Grid item xs='auto'>
                 <Link to='/my-photos'style={{ textDecoration: 'none'}}>
-                  <Button variant="outlined" color='neutral' size='large' style={{ fontWeight: 'bold', margin: 10 }}>My Photos</Button>
+                  <Button variant="contained" color='buttonBlue' size='large' style={{ fontWeight: 'bold', margin: 10 }}>My Photos</Button>
                 </Link>
               </Grid>
             </Grid>

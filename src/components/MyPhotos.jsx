@@ -63,10 +63,6 @@ export function MyPhotos() {
     }
 
 
-    var today = new Date();
-    var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
-    var dateTime = date;
-
     const capitalizeFirstLetter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
@@ -82,7 +78,7 @@ export function MyPhotos() {
                 urlFull: photo.urls.full,
                 urlRegular: photo.urls.regular,
                 urlThumb: photo.urls.thumb,
-                date: dateTime,
+                date: photo.date,
                 tag: photo.tag
             }
         

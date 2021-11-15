@@ -20,6 +20,10 @@ export function Search() {
           myBlue: {
               main: '#685cf4',
               contrastText: '#fff'
+          },
+          buttonBlue:{
+            main: '#ffffff',
+            contrast: '#685cf4'
           }
         },
       });
@@ -44,9 +48,13 @@ export function Search() {
         setTerm(newTerm);
     }
 
+    var today = new Date();
+    var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+    var dateTime = date;
 
     const handleAdd = (image) => {
         image.tag = term.toLowerCase();
+        image.date = dateTime;
         dispatch(add(image));
     }
     
@@ -64,7 +72,7 @@ export function Search() {
         <ThemeProvider theme={theme}>
             <div className='search-bar'>
                 <TextField className='search-bar-item' id="outlined-basic" label="Start searching here..." color='myBlue' value={term} variant="outlined" onChange={setSearchTerm}/>
-                <SearchIcon className='magnifying-glass' fontSize='large' color='myBlue' onClick={() => handleSearch(term)} />
+                <SearchIcon className='magnifying-glass' fontSize='large' color='neutral' onClick={() => handleSearch(term)} />
             </div>
             <div>
                 <div className='image-list'>
