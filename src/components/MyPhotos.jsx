@@ -1,8 +1,8 @@
 import '../styles/MyPhotos.scss';
 import React, { useState, useEffect } from 'react';
-import { Grid, Pagination, Chip, Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Box, Button, Typography, Modal, InputLabel, MenuItem, FormControl, Select } from '@mui/material'
+import { Pagination, Chip, Stack, TextField, ImageList, ImageListItem, ImageListItemBar, Box, Button, Typography, Modal, InputLabel, MenuItem, FormControl, Select } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux';
-import { remove, edit, orderBy, removeTag, selectMyPhotos } from '../slices/myPhotosSlice.js';
+import { remove, edit, orderBy, selectMyPhotos } from '../slices/myPhotosSlice.js';
 import { BiArrowToBottom, BiEditAlt, BiTrash } from 'react-icons/bi';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
@@ -67,6 +67,10 @@ export function MyPhotos() {
     var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
     var dateTime = date;
 
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     const imageArray = myImages.myPhotos
         .map(photo => {
             return {
@@ -114,10 +118,6 @@ export function MyPhotos() {
         setExistingTags(tagsArray);
         setTagsObj(tagsArray.reduce((acc, curr) => ({...acc, [curr]:true}),{}))
     }, [myImages]); 
-
-    useEffect(() => {
-        
-    }, [])
 
     const handleToggleTag = (tag) => {
         setTagsObj(prev => ({...prev, [tag]:prev[tag] === false}))
@@ -172,8 +172,8 @@ export function MyPhotos() {
                                     position="bottom"
                                     subtitle={
                                         <div>   
-                                            <ul className='image-text' style={{ listStyle: 'none', display: 'block', textAlign: 'center', opacity: 0.8, color: 'white', padding: 5, lineHeight: 1.4 }}>
-                                                <li>{image.description}</li>
+                                            <ul className='image-text'>
+                                                <li id='description'>{image.description ? capitalizeFirstLetter(image.description) : image.description}</li>
                                                 <li>Size: {image.height}x{image.width}</li>
                                                 <li>❤ {image.likes}</li>
                                                 <li>Added: {image.date}</li>

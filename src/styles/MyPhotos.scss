@@ -39,13 +39,25 @@
 
         img{
           width: 300px;
-          height: 300px;
+          height: 400px;
           object-fit: cover;
     
         }
 
         .image-text{
-          font-size: 14px;
+          font-size: 12px;
+          list-style: none;
+          display: block;
+          text-align: center;
+          opacity: 0.8;
+          color: white;
+          padding: 5px;
+          line-height: 1.4;
+
+          #description{
+            font-style: italic;
+            font-size: 16px;
+          }
         }
       }
     
