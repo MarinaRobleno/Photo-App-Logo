@@ -42,8 +42,8 @@ export function Search() {
         e.preventDefault();
         const newTerm = e.target.value;
         setTerm(newTerm);
-        handleSearch(newTerm);
     }
+
 
     const handleAdd = (image) => {
         image.tag = term.toLowerCase();
@@ -69,7 +69,7 @@ export function Search() {
         <ThemeProvider theme={theme}>
             <div className='search-bar'>
                 <TextField className='search-bar-item' id="outlined-basic" label="Start searching here..." color='myBlue' value={term} variant="outlined" onChange={setSearchTerm}/>
-                <SearchIcon className='magnifying-glass' fontSize='large' color='myBlue' />
+                <SearchIcon className='magnifying-glass' fontSize='large' color='myBlue' onClick={() => handleSearch(term)} />
             </div>
             <div>
                 <div className='image-list'>
