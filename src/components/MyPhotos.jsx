@@ -108,18 +108,19 @@ export function MyPhotos() {
 
     //CHIPS
     const [existingTags, setExistingTags] = useState([]);
-    const [tagVariant, setTagVariant] = useState('contained');
+    const [tagObj, setTagsObj] = useState({})
     useEffect(() => {
-        setExistingTags([... new Set(imageArray.map((image) => image.tag))])
+        const tagsArray = [... new Set(imageArray.map((image) => image.tag))]
+        setExistingTags(tagsArray);
+        setTagsObj(tagsArray.reduce((acc, curr) => ({...acc, [curr]:true}),{}))
     }, [myImages]); 
 
-    const handleToggleTag = (chipToDelete) => {
-        if (tagVariant === 'contained'){
-            setTagVariant('outlined');
-        }else if(tagVariant === 'outlined'){
-            setTagVariant('contained');
-        }
-        //dispatch(removeTag(chipToDelete))
+    useEffect(() => {
+        
+    }, [])
+
+    const handleToggleTag = (tag) => {
+        setTagsObj(prev => ({...prev, [tag]:prev[tag] === false}))
       };
 
     return (
@@ -145,7 +146,7 @@ export function MyPhotos() {
                     </FormControl>
                     <Stack className='tag-list' direction="row" spacing={1}>
                         {existingTags.map((tag) => (
-                            <Chip className='tag' color='myBlue' variant={tagVariant} key={tag} label={tag} onClick={() => handleToggleTag(tag)} />)
+                            <Chip className='tag' color='myBlue' variant={tagObj[tag] ? 'contained' : 'outlined'} key={tag} label={tag} onClick={() => handleToggleTag(tag)} />)
                         )}
                     </Stack>
                 </div>
@@ -159,6 +160,7 @@ export function MyPhotos() {
                                 return image;
                             }
                         })
+                        .filter((image) => tagObj[image.tag])
                         .map((image) => (
                             <ImageListItem className='image-container' key={image.id} sx={{ maxWidth: 300 }}>
                                 <img

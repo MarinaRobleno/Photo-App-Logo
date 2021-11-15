@@ -1,12 +1,16 @@
 import '../styles/Search.scss';
 import React, { useState, useEffect } from 'react';
 import {Button, Pagination, Stack, TextField, ImageList, ImageListItem, ImageListItemBar} from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectMyPhotos } from '../slices/myPhotosSlice.js';
 import { add } from '../slices/myPhotosSlice.js';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import SearchIcon from '@mui/icons-material/Search';
 
 export function Search() {
+    const myImages = useSelector(selectMyPhotos);
+
+
     const theme = createTheme({
         palette: {
           neutral: {
@@ -41,13 +45,8 @@ export function Search() {
         handleSearch(newTerm);
     }
 
-    const [toggleAdd, setToggleAdd] = useState(false);
-    const [srcButton, setSrcButton] = useState("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iMjQiIGhlaWdodD0iMjQiCnZpZXdCb3g9IjAgMCAxNzIgMTcyIgpzdHlsZT0iIGZpbGw6IzAwMDAwMDsiPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0ibm9uZSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IiIgc3Ryb2tlLWRhc2hvZmZzZXQ9IjAiIGZvbnQtZmFtaWx5PSJub25lIiBmb250LXdlaWdodD0ibm9uZSIgZm9udC1zaXplPSJub25lIiB0ZXh0LWFuY2hvcj0ibm9uZSIgc3R5bGU9Im1peC1ibGVuZC1tb2RlOiBub3JtYWwiPjxwYXRoIGQ9Ik0wLDE3MnYtMTcyaDE3MnYxNzJ6IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9Im5vbnplcm8iPjwvcGF0aD48ZyBmaWxsPSIjZmZmZmZmIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik03OC44MzMzMywxNC4zMzMzM3Y2NC41aC02NC41djE0LjMzMzMzaDY0LjV2NjQuNWgxNC4zMzMzM3YtNjQuNWg2NC41di0xNC4zMzMzM2gtNjQuNXYtNjQuNXoiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPg==")
-
     const handleAdd = (image) => {
         image.tag = term.toLowerCase();
-        setSrcButton('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAABR0lEQVR4nO3aoU4DQRRG4UklEAyEgMIgEfX1BFHFA/AsGDwvgyMIDAIJCb4JDo/rQXSvYNPZLWVmZ/byf7JtuvfcbTdNuiGIiIiIiLgE7ANXwGnpWQYHTIEPVr6AeemZBtPEf/LTfft1kxLD5QZMQwgPIYSD1lOLAuMMK3LmAd6Aw9LzZdUR/w6clJ4vK8UrXvGKV7ziFe+X4hWveMUrXvGK90vx8fjjUkNNgBvgBbgDdjIdJxb/ChzlOOamg123BnpMvYRq45vhbtcMlmwJVcc3A56z+jcl+RKqjzfARWQJT8Delu9Z3wWvS8oljC7epFjCaOPNX5Yw+nizzRLcxJvfLMFdvNlkCW7jTc8SZq7jDXAZWcJyzWN1/chJpeOT4PfMt/UswXe8iSzhf8SbZgl28Xt2+Z3vA+wCZ4DLO9BERERERMSHb/W39CF5uu0uAAAAAElFTkSuQmCC')
-        setToggleAdd(true);
         dispatch(add(image));
     }
 
@@ -86,8 +85,8 @@ export function Search() {
                                 <ImageListItemBar
                                     position="bottom"
                                     subtitle={
-                                        <Button key={image.id} variant="contained" color="myBlue" disabled={toggleAdd} onClick={() => handleAdd(image)}>
-                                            <img className='add-button' alt="svgImg" src={srcButton}/>
+                                        <Button key={image.id} variant="contained" color="myBlue" disabled={myImages.photosObj[image.id]} onClick={() => handleAdd(image)}>
+                                            <img className='add-button' alt="svgImg" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iMjQiIGhlaWdodD0iMjQiCnZpZXdCb3g9IjAgMCAxNzIgMTcyIgpzdHlsZT0iIGZpbGw6IzAwMDAwMDsiPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0ibm9uZSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IiIgc3Ryb2tlLWRhc2hvZmZzZXQ9IjAiIGZvbnQtZmFtaWx5PSJub25lIiBmb250LXdlaWdodD0ibm9uZSIgZm9udC1zaXplPSJub25lIiB0ZXh0LWFuY2hvcj0ibm9uZSIgc3R5bGU9Im1peC1ibGVuZC1tb2RlOiBub3JtYWwiPjxwYXRoIGQ9Ik0wLDE3MnYtMTcyaDE3MnYxNzJ6IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9Im5vbnplcm8iPjwvcGF0aD48ZyBmaWxsPSIjZmZmZmZmIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik03OC44MzMzMywxNC4zMzMzM3Y2NC41aC02NC41djE0LjMzMzMzaDY0LjV2NjQuNWgxNC4zMzMzM3YtNjQuNWg2NC41di0xNC4zMzMzM2gtNjQuNXYtNjQuNXoiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPg=="/>
                                         </Button>}
                                 />
                             </ImageListItem>

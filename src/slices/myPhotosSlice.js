@@ -5,27 +5,27 @@ const saveState = (photos) => {
 }
 
 const retrieveState = () => {
-    return localStorage.getItem('myImagesApp.myImages') ? JSON.parse(localStorage.getItem('myImagesApp.myImages')) : [];
+    return localStorage.getItem('myImagesApp.myImages') ? JSON.parse(localStorage.getItem('myImagesApp.myImages')) : {myPhotos: [], photosObj: {}};
 }
 
 
 export const myPhotosSlice = createSlice({
     name: 'myPhotos',
-    initialState: {
-        myPhotos: retrieveState(),
-    },
+    initialState: retrieveState(),
     reducers: {
         add: (state, action) => {
-            state.myPhotos = [...state.myPhotos, action.payload]
-            saveState(state.myPhotos);
+            state.myPhotos = [...state.myPhotos, action.payload];
+            state.photosObj[action.payload.id] = true;
+            saveState(state);
         },
         remove: (state, action) => {
-            state.myPhotos = state.myPhotos.filter(photo => photo.id !== action.payload.id)
-            saveState(state.myPhotos);
+            state.myPhotos = state.myPhotos.filter(photo => photo.id !== action.payload.id);
+            delete(state.photosObj[action.payload.id])
+            saveState(state);
         },
         edit: (state, action) => {
             state.myPhotos = state.myPhotos.map(photo => photo.id === action.payload.id ? {...photo, alt_description: action.payload.description} : photo);
-            saveState(state.myPhotos);
+            saveState(state);
         },
         orderBy: (state, action) => {
             state.myPhotos = state.myPhotos.sort((a,b) => {
@@ -38,10 +38,6 @@ export const myPhotosSlice = createSlice({
                     return 0;
             })
             
-        },
-        removeTag: (state, action) => {
-            state.myPhotos = state.myPhotos.filter(photo => photo.tag !== action.payload)
-
         }
     }
 })
