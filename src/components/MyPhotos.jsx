@@ -171,7 +171,7 @@ export function MyPhotos() {
                                     className='image-item-bar'
                                     position="bottom"
                                     subtitle={
-                                        <>   
+                                        <div>   
                                             <ul className='image-text' style={{ listStyle: 'none', display: 'block', textAlign: 'center', opacity: 0.8, color: 'white', padding: 5, lineHeight: 1.4 }}>
                                                 <li>{image.description}</li>
                                                 <li>Size: {image.height}x{image.width}</li>
@@ -180,16 +180,16 @@ export function MyPhotos() {
                                             </ul>
                                             <div className='photo-buttons' style={{ display: 'block', textAlign: 'center', opacity: 0.8, padding: 5 }}>
                                                 <Button variant="text" onClick={() => removePhotoHandler(image)} color='neutral'>
-                                                    <BiTrash />
+                                                    <BiTrash size='1.5em' />
                                                 </Button>
                                                 <Button variant="text" onClick={() => editPhotoHandler(image)} color='neutral'>
-                                                    <BiEditAlt />
+                                                    <BiEditAlt size='1.5em' />
                                                 </Button>
                                                 <Button variant="text" onClick={() => download(image)} color='neutral'>
-                                                    <BiArrowToBottom />
+                                                    <BiArrowToBottom size='1.5em' />
                                                 </Button>
                                             </div>
-                                        </>
+                                        </div>
                                     }
                                 />
                             </ImageListItem>

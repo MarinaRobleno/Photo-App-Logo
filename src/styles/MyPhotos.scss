@@ -43,9 +43,6 @@
           object-fit: cover;
     
         }
-        .image-item-bar{
-          white-space: wrap;
-        }
 
         .image-text{
           font-size: 14px;
@@ -55,4 +52,7 @@
       .pagination{
         margin-bottom: 10px;
       }
+  .MuiImageListItemBar-subtitle{
+    white-space: normal;
+  }    
 }
