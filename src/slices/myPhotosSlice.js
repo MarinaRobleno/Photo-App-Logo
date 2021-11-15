@@ -44,6 +44,6 @@ export const myPhotosSlice = createSlice({
 
 export const selectMyPhotos = (state) => state.myPhotos;
 
-export const { add, remove, edit, orderBy, removeTag } = myPhotosSlice.actions
+export const { add, remove, edit, orderBy } = myPhotosSlice.actions
 
 export default myPhotosSlice.reducer;

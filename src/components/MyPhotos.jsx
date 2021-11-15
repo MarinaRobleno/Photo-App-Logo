@@ -92,24 +92,6 @@ export function MyPhotos() {
         window.open(image.urlFull, '_blank');
     }
 
-    // PAGINATION
-    const [currentPage, setCurrentPage] = useState(1);
-    const imagesPerPage = 16;
-    const [pages, setPages] = useState(1)
-    
-    const indexOfLastImage = currentPage * imagesPerPage;
-    const indexOfFirstImage = indexOfLastImage - imagesPerPage;
-    const currentImages = imageArray.slice(indexOfFirstImage, indexOfLastImage);
-
-    useEffect(() => {
-        const maxPages = Math.ceil(imageArray.length/16);
-        setPages(maxPages);
-    }, [myImages])
-
-    const handleChangePage = (event, newPage) => {
-        setCurrentPage(newPage)
-}
-
     //CHIPS
     const [existingTags, setExistingTags] = useState([]);
     const [tagObj, setTagsObj] = useState({})
@@ -152,7 +134,7 @@ export function MyPhotos() {
                 </div>
                 <div className='image-list'>
                     <ImageList cols={4}>
-                    {currentImages
+                    {imageArray
                         .filter((image) => {
                             if (filteredTerm == ''){
                                 return image;
@@ -224,9 +206,6 @@ export function MyPhotos() {
                         </Typography>
                     </Box>
                 </Modal>
-                <Stack spacing={2} style={{ alignItems: 'center', marginBottom: 10 }}>
-                    <Pagination component='div' defaultPage={1} page={currentPage} count={pages} color="myBlue" onChange={handleChangePage}/>
-                </Stack>
             </ThemeProvider>    
         </div>
     )
