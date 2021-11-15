@@ -94,7 +94,7 @@ export function MyPhotos() {
 
     // PAGINATION
     const [currentPage, setCurrentPage] = useState(1);
-    const [imagesPerPage, setImagesPerPage] = useState(12);
+    const imagesPerPage = 16;
     const [pages, setPages] = useState(1)
     
     const indexOfLastImage = currentPage * imagesPerPage;
@@ -102,7 +102,7 @@ export function MyPhotos() {
     const currentImages = imageArray.slice(indexOfFirstImage, indexOfLastImage);
 
     useEffect(() => {
-        const maxPages = Math.ceil(imageArray.length/12);
+        const maxPages = Math.ceil(imageArray.length/16);
         setPages(maxPages);
     }, [myImages])
 
