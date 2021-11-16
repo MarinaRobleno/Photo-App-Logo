@@ -6,6 +6,7 @@ import { selectMyPhotos } from '../slices/myPhotosSlice.js';
 import { add } from '../slices/myPhotosSlice.js';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import SearchIcon from '@mui/icons-material/Search';
+import 'animate.css'
 
 export function Search() {
     const myImages = useSelector(selectMyPhotos);
@@ -73,9 +74,10 @@ export function Search() {
             <div className='search-bar'>
                 <TextField className='search-bar-item' id="outlined-basic" label="Start searching here..." color='myBlue' value={term} variant="outlined" onChange={setSearchTerm}/>
                 <SearchIcon className='magnifying-glass' fontSize='large' color='neutral' onClick={() => handleSearch(term)} />
-            </div>
+            </div>   
             <div>
-                <div className='image-list'>
+                {json.length > 0 ?
+                    <div className='image-list'>
                     <ImageList cols={4}>
                         {json.map((image) => (
                             <ImageListItem className='image-container' sx={{ maxWidth: 300, maxHeight: 300 }} key={image.id}>
@@ -95,11 +97,11 @@ export function Search() {
                             </ImageListItem>
                         ))}
                     </ImageList>
-                </div>
+                </div> : <img className='animate__animated animate__pulse animate__infinite animate__slower logo-background' src="https://fontmeme.com/permalink/211116/74e2fb54a3d637e8cd3f7b92480913a8.png" alt="fuentes-de-grafiti" border="0"/>}
                 {json.length > 0 ?
                 <Stack className='pagination' spacing={2} style={{ alignItems: 'center' }}>
                     <Pagination component='div' defaultPage={1} page={currentPage} count={pages} color="myBlue" onChange={handleChangePage}/>
-                </Stack> : null}
+                </Stack> : null} 
             </div>
         </ThemeProvider>
     </div>

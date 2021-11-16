@@ -3,11 +3,15 @@
   src: url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
 }
 
+body{
+  display: flex;
+  flex-direction: column;
+}
+
 .header{
   display: flex;
   top: 0px;
   max-width: none;
-  background-color: 'white'; 
   background: #685cf4 0% 0% no-repeat padding-box;
   box-shadow: 5px 10px 14px #00000029;
   height: 50;

@@ -29,35 +29,35 @@ function App() {
   });
   return (
     <>
-    <header>
-      <ThemeProvider theme={theme}>
-        <div className='header'>
-          <IconContext.Provider value={{ className: "camera-icon" }}>
-            <FaCameraRetro fontSize='large' />
-          </IconContext.Provider>
-          <h3 className='app-title'>PHOTO APP LOGO</h3>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid 
-              container spacing={1} 
-              direction="row"
-              justifyContent="flex-end"
-              alignItems="flex-start"
-              >
-              <Grid item xs='auto'>
-                <Link to='/search' style={{ textDecoration: 'none' }}>
-                  <Button className='search-button' variant="contained" color='buttonBlue' size='large' style={{ fontWeight: 'bold', margin: 10 }}>SEARCH</Button>
-                </Link>
+      <header>
+        <ThemeProvider theme={theme}>
+          <div className='header'>
+            <IconContext.Provider value={{ className: "camera-icon" }}>
+              <FaCameraRetro fontSize='large' />
+            </IconContext.Provider>
+            <h3 className='app-title'>PHOTO APP LOGO</h3>
+            <Box sx={{ flexGrow: 1 }}>
+              <Grid 
+                container spacing={1} 
+                direction="row"
+                justifyContent="flex-end"
+                alignItems="flex-start"
+                >
+                <Grid item xs='auto'>
+                  <Link to='/search' style={{ textDecoration: 'none' }}>
+                    <Button className='search-button' variant="contained" color='buttonBlue' size='large' style={{ fontWeight: 'bold', margin: 10 }}>SEARCH</Button>
+                  </Link>
+                </Grid>
+                <Grid item xs='auto'>
+                  <Link to='/my-photos'style={{ textDecoration: 'none'}}>
+                    <Button variant="contained" color='buttonBlue' size='large' style={{ fontWeight: 'bold', margin: 10 }}>My Photos</Button>
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item xs='auto'>
-                <Link to='/my-photos'style={{ textDecoration: 'none'}}>
-                  <Button variant="contained" color='buttonBlue' size='large' style={{ fontWeight: 'bold', margin: 10 }}>My Photos</Button>
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
-        </div>
-      </ThemeProvider>
-    </header>
+            </Box>
+          </div>
+        </ThemeProvider>
+      </header>
       <Routes>
         <Route path='/search' element={<Search />}/>       
         <Route path='/my-photos' element={<MyPhotos />}/>
