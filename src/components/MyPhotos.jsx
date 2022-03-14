@@ -4,6 +4,7 @@ import { Pagination, Chip, Stack, TextField, ImageList, ImageListItem, ImageList
 import { useSelector, useDispatch } from 'react-redux';
 import { remove, edit, orderBy, selectMyPhotos } from '../slices/myPhotosSlice.js';
 import { BiArrowToBottom, BiEditAlt, BiTrash } from 'react-icons/bi';
+import { MdOpenInNew } from 'react-icons/md';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 
@@ -169,7 +170,7 @@ export function MyPhotos() {
                                                     <BiEditAlt size='1.5em' />
                                                 </Button>
                                                 <Button variant="text" onClick={() => download(image)} color='neutral'>
-                                                    <BiArrowToBottom size='1.5em' />
+                                                    <MdOpenInNew size='1.5em' />
                                                 </Button>
                                             </div>
                                         </div>
