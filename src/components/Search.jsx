@@ -14,7 +14,6 @@ import { selectMyPhotos } from "../slices/myPhotosSlice.js";
 import { add } from "../slices/myPhotosSlice.js";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
-import { API_KEY } from "../.api";
 import "animate.css";
 
 export function Search() {
@@ -37,6 +36,8 @@ export function Search() {
     },
   });
 
+  const apiKey = process.env.REACT_APP_API_KEY;
+
   const dispatch = useDispatch();
 
   const [term, setTerm] = useState("");
@@ -46,7 +47,7 @@ export function Search() {
 
   const handleSearch = async (newTerm) => {
     let response = await fetch(
-      `https://api.unsplash.com/search/photos?page=${currentPage}&query=${newTerm}&client_id=${API_KEY}&per_page=16`
+      `https://api.unsplash.com/search/photos?page=${currentPage}&query=${newTerm}&client_id=${apiKey}&per_page=16`
     );
     let json = await response.json();
     setPages(json.total_pages);
@@ -99,7 +100,7 @@ export function Search() {
           />
         </div>
         <div>
-          {json.length > 0 ? (
+          {json?.length > 0 ? (
             <div className="image-list">
               <ImageList cols={4}>
                 {json.map((image) => (
@@ -140,7 +141,7 @@ export function Search() {
               border="0"
             />
           )}
-          {json.length > 0 ? (
+          {json?.length > 0 ? (
             <Stack
               className="pagination"
               spacing={2}
