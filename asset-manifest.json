@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Photo-App-Logo/static/css/main.dd04333c.css",
+    "main.js": "/Photo-App-Logo/static/js/main.db7992ee.js",
+    "index.html": "/Photo-App-Logo/index.html",
+    "main.dd04333c.css.map": "/Photo-App-Logo/static/css/main.dd04333c.css.map",
+    "main.db7992ee.js.map": "/Photo-App-Logo/static/js/main.db7992ee.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dd04333c.css",
+    "static/js/main.db7992ee.js"
+  ]
+}
